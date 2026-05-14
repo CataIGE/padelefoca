@@ -8,7 +8,7 @@ export const routes: Routes = [
   // { path: 'joueur/calendrier/:siteId', loadComponent: () => import('./joueur/calendrier/calendrier').then(m => m.Calendrier) },
   // { path: 'joueur/match/creer/:siteId/:creneau', loadComponent: () => import('./joueur/match-creer/match-creer').then(m => m.MatchCreer) },
   // { path: 'joueur/profil', loadComponent: () => import('./joueur/profil/profil').then(m => m.Profil) },
-  // { path: 'admin/connexion', loadComponent: () => import('./admin/connexion/connexion').then(m => m.ConnexionAdmin) },
+  { path: 'admin/connexion', loadComponent: () => import('./admin/connexion/connexion').then(m => m.ConnexionAdmin) },
   // { path: 'admin/accueil', loadComponent: () => import('./admin/accueil/accueil').then(m => m.Accueil) },
   // { path: 'admin/statistiques', loadComponent: () => import('./admin/statistiques/statistiques').then(m => m.Statistiques) },
   // { path: 'admin/gestion', loadComponent: () => import('./admin/gestion/gestion').then(m => m.Gestion) },
