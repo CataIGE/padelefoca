@@ -28,43 +28,120 @@
 
         <!-- TABS -->
         <div class="tabs">
-          <button class="tab tab-actif">Se connecter</button>
-          <button class="tab" (click)="allerInscription()">Créer un compte</button>
-        </div>
-
-        <!-- FORMULAIRE -->
-        <div class="formulaire">
-
-          <div class="champ">
-            <label class="champ-label">MATRICULE</label>
-            <input
-              class="champ-input"
-              type="text"
-              placeholder="L1234"
-              [(ngModel)]="matricule"
-            />
-            <span class="champ-hint">Format : L suivi de 4 chiffres</span>
-          </div>
-
-          <!-- MESSAGE ERREUR -->
-          @if (erreur) {
-          <div class="erreur-msg">
-             {{ erreur }}
-          </div>
-}
-
-          <!-- BOUTON -->
-          <button class="btn-connexion" (click)="seConnecter()">
-            Continuer →
+          <button class="tab"
+            [class.tab-actif]="ongletActif === 'connexion'"
+            (click)="changerOnglet('connexion')">
+            Se connecter
           </button>
-
-          <!-- LIEN -->
-          <div class="lien-bas">
-            Matricule oublié ?
-            <span class="lien">Contactez votre club</span>
-          </div>
-
+          <button class="tab"
+            [class.tab-actif]="ongletActif === 'inscription'"
+            (click)="changerOnglet('inscription')">
+            Créer un compte
+          </button>
         </div>
+
+        <!-- FORMULAIRE CONNEXION -->
+        @if (ongletActif === 'connexion') {
+          <div class="formulaire">
+
+            <div class="champ">
+              <label class="champ-label">MATRICULE</label>
+              <input
+                class="champ-input"
+                type="text"
+                placeholder="L1234"
+                [(ngModel)]="matricule"
+              />
+              <span class="champ-hint">Format : L suivi de 4 chiffres</span>
+            </div>
+
+            @if (erreur) {
+              <div class="erreur-msg">{{ erreur }}</div>
+            }
+
+            <button class="btn-connexion" (click)="seConnecter()">
+              Continuer →
+            </button>
+
+            <div class="lien-bas">
+              Matricule oublié ?
+              <span class="lien">Contactez votre club</span>
+            </div>
+
+          </div>
+        }
+
+        <!-- FORMULAIRE INSCRIPTION -->
+        @if (ongletActif === 'inscription') {
+          <div class="formulaire">
+
+            <div class="champs-double">
+              <div class="champ">
+                <label class="champ-label">PRÉNOM</label>
+                <input
+                  class="champ-input"
+                  type="text"
+                  placeholder="Lina"
+                  [(ngModel)]="prenom"
+                />
+              </div>
+              <div class="champ">
+                <label class="champ-label">NOM</label>
+                <input
+                  class="champ-input"
+                  type="text"
+                  placeholder="Verhoeven"
+                  [(ngModel)]="nom"
+                />
+              </div>
+            </div>
+
+            <div class="champ">
+              <label class="champ-label">ÂGE</label>
+              <input
+                class="champ-input"
+                type="number"
+                placeholder="29"
+                [(ngModel)]="age"
+              />
+            </div>
+
+            <div class="champ">
+              <label class="champ-label">TÉLÉPHONE <span class="facultatif">(facultatif)</span></label>
+                 <input
+                    class="champ-input"
+                    type="tel"
+                    placeholder="+32 ..."
+                    [(ngModel)]="telephone"
+               />
+            </div>  
+
+            <div class="champ">
+              <label class="champ-label">EMAIL</label>
+              <input
+                class="champ-input"
+                type="email"
+                placeholder="vous@email.com"
+                [(ngModel)]="email"
+              />
+            </div>
+
+            @if (erreur) {
+              <div class="erreur-msg">{{ erreur }}</div>
+            }
+
+            @if (matriculeGenere) {
+              <div class="succes-msg">
+                ✓ Inscription réussie ! Ton matricule est <strong>{{ matriculeGenere }}</strong>
+              </div>
+            }
+
+            <button class="btn-connexion" (click)="sInscrire()">
+              Générer mon matricule →
+            </button>
+
+          </div>
+        }
 
       </div>
     </div>
