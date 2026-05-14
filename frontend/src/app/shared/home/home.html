@@ -1,0 +1,115 @@
+<div class="page">
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="navbar-logo">
+      <img src="logo.png" alt="Logo Padelefoca" class="navbar-img" />
+      <span class="navbar-nom">Padelefoca</span>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+
+    <!-- COLONNE GAUCHE : texte -->
+    <div class="hero-gauche">
+
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Padel · Bruxelles · Gand · Namur
+      </div>
+
+      <h1 class="hero-titre">
+        Réserve un terrain.<br />
+        <span class="hero-titre-accent">Trouve tes joueurs.</span><br />
+        <span class="hero-titre-gris">Phoque le reste!</span>
+      </h1>
+
+      <p class="hero-description">
+        Une seule plateforme pour les trois clubs Padelefoca.
+        Réservez un terrain, rejoignez un match public ou
+        invitez vos amis — en moins de 30 secondes.
+      </p>
+
+      <!-- BOUTONS -->
+      <div class="hero-boutons">
+        <button class="btn btn-joueur" (click)="allerEspaceJoueur()">
+          Je suis joueur →
+        </button>
+        <button class="btn btn-admin" (click)="allerEspaceAdmin()">
+          Je suis administrateur
+        </button>
+      </div>
+
+      <!-- STATS -->
+      <div class="hero-stats">
+        <div class="stat">
+          <span class="stat-nombre">3</span>
+          <span class="stat-label">Sites · 9 terrains</span>
+        </div>
+        <div class="stat-separateur"></div>
+        <div class="stat">
+          <span class="stat-nombre">1h30</span>
+          <span class="stat-label">Par match</span>
+        </div>
+        <div class="stat-separateur"></div>
+        <div class="stat">
+          <span class="stat-nombre">15€</span>
+          <span class="stat-label">Par joueur</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- COLONNE DROITE : logo -->
+    <div class="hero-droite">
+    <div class="hero-logo-wrapper">
+    <div class="hero-logo-container">
+      <img src="logo.png" alt="Mascotte Padelefoca" class="hero-logo" />
+      <!-- CARTE FLOTTANTE HAUT -->
+      <div class="carte-flottante carte-haut">
+        <span class="carte-icon">✓</span>
+        <div>
+          <div class="carte-titre">Réservé · {{ maintenant }}</div>
+          <div class="carte-sous-titre">+500 joueurs actifs</div>
+        </div>
+      </div>
+      <!-- CARTE FLOTTANTE BAS -->
+      <div class="carte-flottante carte-bas">
+        ● Encore quelques terrains disponibles !
+      </div>
+    </div>
+    <div class="hero-nom">Padelefoca</div>
+    </div>
+    </div>
+
+  </section>
+
+  <!-- CARDS ROLES -->
+  <section class="roles">
+
+    <div class="role-card role-joueur" (click)="allerEspaceJoueur()">
+      <div class="role-badge">● MEMBRES</div>
+      <div class="role-numero">01 / Joueur</div>
+      <h2 class="role-titre">Je suis joueur</h2>
+      <p class="role-description">
+        Connectez-vous avec votre matricule — réservez des terrains,
+        rejoignez des matches publics et gérez vos réservations.
+      </p>
+      <div class="role-lien">Continuer →</div>
+    </div>
+
+    <div class="role-card role-admin" (click)="allerEspaceAdmin()">
+      <div class="role-badge role-badge-admin">⌘ STAFF</div>
+      <div class="role-numero">02 / Administrateur</div>
+      <h2 class="role-titre">Je suis admin</h2>
+      <p class="role-description">
+        Gérez les membres, les terrains, les statistiques et
+        les paiements sur un ou plusieurs sites.
+      </p>
+      <div class="role-lien">Continuer →</div>
+    </div>
+
+  </section>
+
+</div>
