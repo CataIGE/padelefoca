@@ -1,0 +1,74 @@
+<div class="page">
+
+  <div class="conteneur">
+
+    <!-- COLONNE GAUCHE : photo -->
+    <div class="gauche">
+      <div class="gauche-texte">
+        <div class="numero">01 / ESPACE JOUEUR</div>
+        <h1 class="titre">
+          Bienvenue,<br />
+          <span class="titre-gris">joueur.</span>
+        </h1>
+        <p class="description">
+          Connecte-toi avec ton matricule pour réserver
+          un terrain, rejoindre un match ou gérer ton profil.
+        </p>
+      </div>
+      <img
+        src="ImageConnexion.png"
+        alt="Terrain de padel"
+        class="photo"
+      />
+    </div>
+
+    <!-- COLONNE DROITE : formulaire -->
+    <div class="droite">
+      <div class="card">
+
+        <!-- TABS -->
+        <div class="tabs">
+          <button class="tab tab-actif">Se connecter</button>
+          <button class="tab" (click)="allerInscription()">Créer un compte</button>
+        </div>
+
+        <!-- FORMULAIRE -->
+        <div class="formulaire">
+
+          <div class="champ">
+            <label class="champ-label">MATRICULE</label>
+            <input
+              class="champ-input"
+              type="text"
+              placeholder="L1234"
+              [(ngModel)]="matricule"
+            />
+            <span class="champ-hint">Format : L suivi de 4 chiffres</span>
+          </div>
+
+          <!-- MESSAGE ERREUR -->
+          @if (erreur) {
+          <div class="erreur-msg">
+             {{ erreur }}
+          </div>
+}
+
+          <!-- BOUTON -->
+          <button class="btn-connexion" (click)="seConnecter()">
+            Continuer →
+          </button>
+
+          <!-- LIEN -->
+          <div class="lien-bas">
+            Matricule oublié ?
+            <span class="lien">Contactez votre club</span>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>

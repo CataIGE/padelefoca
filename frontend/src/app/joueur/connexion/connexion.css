@@ -1,0 +1,265 @@
+/* =====================
+   PAGE
+   ===================== */
+
+.page {
+  min-height: 100vh;
+  background-color: var(--bg);
+  display: flex;
+  flex-direction: column;
+}
+
+.conteneur {
+  display: flex;
+  flex: 1;
+  min-height: calc(100vh - 69px);
+}
+
+/* =====================
+   COLONNE GAUCHE
+   ===================== */
+
+.gauche {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 48px;
+  background-color: var(--bg);
+  overflow: hidden;
+}
+
+.gauche-texte {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 480px;
+}
+
+.numero {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-3);
+}
+
+.titre {
+  font-family: var(--font-titre);
+  font-size: clamp(40px, 5vw, 72px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin: 0;
+  color: var(--ink);
+}
+
+.titre-gris {
+  color: var(--ink-3);
+}
+
+.description {
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--ink-2);
+  margin: 0;
+}
+
+.photo {
+  width: 100%;
+  max-height: 340px;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  margin-top: 32px;
+}
+
+/* =====================
+   COLONNE DROITE
+   ===================== */
+
+.droite {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+  background-color: var(--bg-2);
+}
+
+.card {
+  background: white;
+  border: 1px solid var(--ligne);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* =====================
+   TABS
+   ===================== */
+
+.tabs {
+  display: flex;
+  background: var(--bg-2);
+  border-radius: 999px;
+  padding: 4px;
+  gap: 4px;
+}
+
+.tab {
+  flex: 1;
+  padding: 10px 18px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-2);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: var(--font-corps);
+}
+
+.tab-actif {
+  background: white;
+  color: var(--ink);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* =====================
+   FORMULAIRE
+   ===================== */
+
+.formulaire {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.champ {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.champ-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-2);
+}
+
+.champ-input {
+  padding: 14px 16px;
+  border: 1px solid var(--ligne);
+  border-radius: var(--radius);
+  font-size: 16px;
+  color: var(--ink);
+  background: white;
+  outline: none;
+  transition: border-color 0.15s ease;
+  font-family: var(--font-corps);
+}
+
+.champ-input:focus {
+  border-color: var(--ink);
+}
+
+.champ-hint {
+  font-size: 12px;
+  color: var(--ink-3);
+}
+
+.erreur-msg {
+  padding: 12px 16px;
+  background: #FEE2E2;
+  border: 1px solid #FCA5A5;
+  border-radius: var(--radius);
+  font-size: 14px;
+  color: #DC2626;
+}
+
+.btn-connexion {
+  width: 100%;
+  padding: 16px;
+  background: var(--jaune);
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 var(--ink);
+  transition: all 0.15s ease;
+  font-family: var(--font-corps);
+}
+
+.btn-connexion:hover {
+  box-shadow: 5px 5px 0 var(--ink);
+  transform: translate(-1px, -1px);
+}
+
+.lien-bas {
+  text-align: center;
+  font-size: 14px;
+  color: var(--ink-3);
+  padding-top: 8px;
+  border-top: 1px solid var(--ligne);
+}
+
+.lien {
+  color: var(--ink);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* =====================
+   RESPONSIVE MOBILE
+   ===================== */
+
+@media (max-width: 768px) {
+
+  .conteneur {
+    flex-direction: column;
+  }
+
+  .gauche {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 24px;
+  padding: 48px;
+  padding-top: 80px;
+  background-color: var(--bg);
+  overflow: hidden;
+}
+
+ .photo {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  margin-top: 0;
+}
+
+  .droite {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 48px;
+  padding-top: 80px;
+  background-color: var(--bg-2);
+}
+
+  .card {
+    padding: 24px;
+  }
+}

@@ -1,1 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --bg: #F5F5F0;
+  --bg-2: #EEEDE8;
+  --ink: #0D1B2A;
+  --ink-2: #3D4F61;
+  --ink-3: #7A8FA3;
+  --ligne: #DDDCD7;
+  --jaune: #C8D400;
+  --bleu: #1E6FD9;
+  --radius: 14px;
+  --radius-lg: 22px;
+  --font-titre: 'Space Grotesk', system-ui, sans-serif;
+  --font-corps: 'Inter', system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-corps);
+}

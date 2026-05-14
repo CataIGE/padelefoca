@@ -1,70 +1,4 @@
 /* =====================
-   VARIABLES & BASE
-   ===================== */
-
-:host {
-  --bg: #F5F5F0;
-  --bg-2: #EEEDE8;
-  --ink: #0D1B2A;
-  --ink-2: #3D4F61;
-  --ink-3: #7A8FA3;
-  --ligne: #DDDCD7;
-  --jaune: #C8D400;
-  --bleu: #1E6FD9;
-  --radius: 14px;
-  --radius-lg: 22px;
-  --font-titre: 'Space Grotesk', system-ui, sans-serif;
-  --font-corps: 'Inter', system-ui, sans-serif;
-}
-
-/* =====================
-   PAGE
-   ===================== */
-
-.page {
-  min-height: 100vh;
-  background-color: var(--bg);
-  color: var(--ink);
-  font-family: var(--font-corps);
-}
-
-/* =====================
-   NAVBAR
-   ===================== */
-
-.navbar {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  display: flex;
-  align-items: center;
-  padding: 16px 40px;
-  background: rgba(245, 245, 240, 0.85);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--ligne);
-}
-
-.navbar-logo {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.navbar-img {
-  width: 36px;
-  height: 36px;
-  object-fit: contain;
-}
-
-.navbar-nom {
-  font-family: var(--font-titre);
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--ink);
-  letter-spacing: -0.02em;
-}
-
-/* =====================
    HERO
    ===================== */
 
@@ -509,19 +443,6 @@
   gap: 16px;
   width: 100%;
 }
-/*
-.hero-nom {
-  font-family: var(--font-titre);
-  font-size: clamp(48px, 5vw, 72px);
-  font-weight: 700;
-  letter-spacing: -0.04em;
-  white-space: nowrap;
-  background: linear-gradient(135deg, #0D1B2A 0%, #1E6FD9 50%, #C8D400 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-} */
-
 
 .hero-nom {
   font-family: var(--font-titre);
