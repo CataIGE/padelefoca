@@ -1,0 +1,79 @@
+<div class="page">
+
+  <div class="conteneur">
+
+    <!-- COLONNE GAUCHE -->
+    <div class="gauche">
+      <div class="gauche-texte">
+        <div class="numero">02 / ESPACE ADMINISTRATEUR</div>
+        <h1 class="titre">
+          Bienvenue,<br />
+          <span class="titre-gris">administrateur.</span>
+        </h1>
+        <p class="description">
+          Connecte-toi avec ton email et ton mot de passe
+          pour gérer les sites, les matches et les statistiques.
+        </p>
+      </div>
+      <img
+        src="ImageAdmin.png"
+        alt="Terrain de padel"
+        class="photo"
+      />
+    </div>
+
+    <!-- COLONNE DROITE -->
+    <div class="droite">
+      <div class="card">
+
+       
+
+        <!-- FORMULAIRE -->
+        <div class="formulaire">
+
+          <div class="champ">
+            <label class="champ-label">EMAIL</label>
+            <input
+              class="champ-input"
+              type="email"
+              placeholder="admin@padelefoca.be"
+              [(ngModel)]="email"
+            />
+          </div>
+
+          <div class="champ">
+            <label class="champ-label">MOT DE PASSE</label>
+            <div class="champ-input-wrapper">
+              <input
+                class="champ-input"
+                [type]="motDePasseVisible ? 'text' : 'password'"
+                placeholder="••••••••"
+                [(ngModel)]="motDePasse"
+              />
+              <button class="toggle-mdp" (click)="toggleMotDePasse()">
+                @if (motDePasseVisible) { 🙈 } @else { 👁️ }
+              </button>
+            </div>
+          </div>
+
+          @if (erreur) {
+            <div class="erreur-msg">{{ erreur }}</div>
+          }
+
+          <button class="btn-connexion" (click)="seConnecter()">
+            Continuer →
+          </button>
+
+          <div class="lien-bas">
+            Mot de passe oublié ?
+            <span class="lien">Réinitialiser</span>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+</div>

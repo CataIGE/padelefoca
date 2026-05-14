@@ -1,0 +1,240 @@
+/* =====================
+   PAGE
+   ===================== */
+
+.page {
+  min-height: 100vh;
+  background-color: var(--bg);
+  display: flex;
+  flex-direction: column;
+}
+
+.conteneur {
+  display: flex;
+  flex: 1;
+  min-height: calc(100vh - 69px);
+}
+
+/* =====================
+   COLONNE GAUCHE
+   ===================== */
+
+.gauche {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 24px;
+  padding: 48px;
+  padding-top: 80px;
+  background-color: var(--ink);
+  overflow: hidden;
+  align-items: center;
+}
+
+.gauche-texte {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 480px;
+  align-self: flex-start;
+}
+
+.numero {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.titre {
+  font-family: var(--font-titre);
+  font-size: clamp(40px, 5vw, 72px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin: 0;
+  color: white;
+}
+
+.titre-gris {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.description {
+  font-size: 17px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+}
+
+.photo {
+  width: 80%;
+  height: auto;
+  object-fit: contain;
+  border-radius: var(--radius-lg);
+}
+
+/* =====================
+   COLONNE DROITE
+   ===================== */
+
+.droite {
+  flex: 1;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 48px;
+  padding-top: 200px;
+  background-color: var(--bg-2);
+}
+
+.card {
+  background: white;
+  border: 1px solid var(--ligne);
+  border-radius: var(--radius-lg);
+  padding: 40px;
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+
+/* =====================
+   FORMULAIRE
+   ===================== */
+
+.formulaire {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.champ {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.champ-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-2);
+}
+
+.champ-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.champ-input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--ligne);
+  border-radius: var(--radius);
+  font-size: 16px;
+  color: var(--ink);
+  background: white;
+  outline: none;
+  transition: border-color 0.15s ease;
+  font-family: var(--font-corps);
+}
+
+.champ-input:focus {
+  border-color: var(--bleu);
+}
+
+.toggle-mdp {
+  position: absolute;
+  right: 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 4px;
+}
+
+.erreur-msg {
+  padding: 12px 16px;
+  background: #FEE2E2;
+  border: 1px solid #FCA5A5;
+  border-radius: var(--radius);
+  font-size: 14px;
+  color: #DC2626;
+}
+
+.btn-connexion {
+  width: 100%;
+  padding: 16px;
+  background: var(--bleu);
+  color: white;
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 var(--ink);
+  transition: all 0.15s ease;
+  font-family: var(--font-corps);
+}
+
+.btn-connexion:hover {
+  box-shadow: 5px 5px 0 var(--ink);
+  transform: translate(-1px, -1px);
+}
+
+.lien-bas {
+  text-align: center;
+  font-size: 14px;
+  color: var(--ink-3);
+  padding-top: 8px;
+  border-top: 1px solid var(--ligne);
+}
+
+.lien {
+  color: var(--bleu);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* =====================
+   RESPONSIVE MOBILE
+   ===================== */
+
+@media (max-width: 768px) {
+
+  .conteneur {
+    flex-direction: column;
+  }
+
+  .gauche {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 24px;
+  padding: 48px;
+  padding-top: 80px;
+  background-color: var(--ink);
+  overflow: hidden;
+}
+
+  .photo {
+    max-height: 200px;
+  }
+
+  .droite {
+    padding: 24px;
+  }
+
+  .card {
+    padding: 24px;
+  }
+}

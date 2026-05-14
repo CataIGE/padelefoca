@@ -39,9 +39,9 @@ export class Connexion {
       this.erreur = 'Veuillez entrer votre matricule.';
       return;
     }
-    const regex = /^L\d{4}$/;
+    const regex = /^[LSG]\d{4}$/;
     if (!regex.test(this.matricule)) {
-      this.erreur = 'Format invalide. Exemple : L1234';
+      this.erreur = 'Format invalide. Exemple : L1234, S1234 ou G1234';
       return;
     }
     this.erreur = '';
