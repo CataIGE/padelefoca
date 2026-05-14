@@ -3,7 +3,7 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
   { path: '', loadComponent: () => import('./shared/home/home').then(m => m.Home) },
   { path: 'joueur/connexion', loadComponent: () => import('./joueur/connexion/connexion').then(m => m.Connexion) },
-  // { path: 'joueur/inscription', loadComponent: () => import('./joueur/inscription/inscription').then(m => m.Inscription) },
+  //{ path: 'joueur/inscription', loadComponent: () => import('./joueur/inscription/inscription').then(m => m.Inscription) },
   // { path: 'joueur/sites', loadComponent: () => import('./joueur/sites/sites').then(m => m.Sites) },
   // { path: 'joueur/calendrier/:siteId', loadComponent: () => import('./joueur/calendrier/calendrier').then(m => m.Calendrier) },
   // { path: 'joueur/match/creer/:siteId/:creneau', loadComponent: () => import('./joueur/match-creer/match-creer').then(m => m.MatchCreer) },
