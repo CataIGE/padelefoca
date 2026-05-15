@@ -1,0 +1,80 @@
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <button class="btn-retour" (click)="retourSites()">← Retour</button>
+    <div class="header-texte">
+      <div class="numero">03 / ESPACE JOUEUR</div>
+      <h1 class="titre">Calendrier<br /><span class="titre-gris">des créneaux.</span></h1>
+    </div>
+  </div>
+
+  <!-- SELECTEUR DATE -->
+  <div class="selecteur-date">
+    <label class="date-label">Choisissez une date</label>
+    <input
+      class="date-input"
+      type="date"
+      [value]="dateSelectionnee()"
+      (change)="changerDate($event)"
+    />
+  </div>
+
+  <!-- LEGENDE -->
+  <div class="legende">
+    <div class="legende-item">
+      <span class="legende-dot dot-libre"></span>
+      Créneau libre
+    </div>
+    <div class="legende-item">
+      <span class="legende-dot dot-public"></span>
+      Match public incomplet
+    </div>
+    <div class="legende-item">
+      <span class="legende-dot dot-prive"></span>
+      Match privé
+    </div>
+    <div class="legende-item">
+      <span class="legende-dot dot-complet"></span>
+      Complet
+    </div>
+  </div>
+
+  <!-- CRENEAUX -->
+  <div class="creneaux-liste">
+    @for (creneau of creneaux(); track creneau.id) {
+      <div
+        class="creneau-card"
+        [class]="getClasseCreneau(creneau)"
+        (click)="clicCreneau(creneau)"
+      >
+        <div class="creneau-heure">
+          {{ creneau.dateHeure | slice:11:16 }}
+        </div>
+        <div class="creneau-terrain">
+          Terrain {{ creneau.terrainId }}
+        </div>
+        <div class="creneau-statut">
+          @if (creneau.statut === 'LIBRE') { 🟢 Libre — Créer un match }
+          @else if (creneau.statut === 'MATCH_PUBLIC') { 🟠 Match public — Rejoindre }
+          @else if (creneau.statut === 'MATCH_PRIVE') { 🔒 Match privé }
+          @else if (creneau.statut === 'COMPLET') { ⛔ Complet }
+        </div>
+
+        @if (estOrganisateur(creneau)) {
+          <button class="btn-annuler" (click)="$event.stopPropagation()">
+            Annuler le match
+          </button>
+        }
+
+      </div>
+    }
+
+    @if (creneaux().length === 0) {
+      <div class="aucun-creneau">
+        Aucun créneau disponible pour cette date.
+      </div>
+    }
+  </div>
+
+</div>
