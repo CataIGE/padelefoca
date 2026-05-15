@@ -1,0 +1,196 @@
+/* =====================
+   PAGE
+   ===================== */
+
+.page {
+  min-height: 100vh;
+  background-color: var(--bg);
+  padding-bottom: 80px;
+}
+
+/* =====================
+   HEADER
+   ===================== */
+
+.header {
+  padding: 60px 48px 40px;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.numero {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-3);
+  margin-bottom: 12px;
+}
+
+.titre {
+  font-family: var(--font-titre);
+  font-size: clamp(40px, 5vw, 72px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin: 0;
+  color: var(--ink);
+}
+
+.titre-gris {
+  color: var(--ink-3);
+}
+
+/* =====================
+   DISCLAIMER
+   ===================== */
+
+.disclaimer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 1320px;
+  margin: 0 auto 48px;
+  padding: 16px 24px;
+  background: white;
+  border: 1px solid var(--ligne);
+  border-radius: var(--radius);
+  font-size: 14px;
+  color: var(--ink-2);
+  margin-left: 48px;
+  margin-right: 48px;
+}
+
+.disclaimer-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+/* =====================
+   GRILLE DES SITES
+   ===================== */
+
+.sites-grille {
+  display: flex;
+  gap: 24px;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+.site-card {
+  flex: 1;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--ligne);
+  background: white;
+  transition: all 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.site-disponible {
+  cursor: pointer;
+}
+
+.site-disponible:hover {
+  transform: translateY(-4px);
+  box-shadow: 6px 6px 0 var(--ink);
+  border-color: var(--ink);
+}
+
+.site-grise {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(50%);
+}
+
+.site-image {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.site-contenu {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+}
+
+.site-nom {
+  font-family: var(--font-titre);
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  margin: 0;
+}
+
+.site-adresse {
+  font-size: 14px;
+  color: var(--ink-3);
+  margin: 0;
+}
+
+.site-terrains {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-2);
+  margin-top: 4px;
+}
+
+.site-badge-dispo {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 16px;
+  padding: 8px 16px;
+  background: var(--jaune);
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 2px 2px 0 var(--ink);
+  width: fit-content;
+}
+
+.site-badge-grise {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 16px;
+  padding: 8px 16px;
+  background: var(--bg-2);
+  color: var(--ink-3);
+  border: 1px solid var(--ligne);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  width: fit-content;
+}
+
+/* =====================
+   RESPONSIVE MOBILE
+   ===================== */
+
+@media (max-width: 768px) {
+
+  .header {
+    padding: 40px 24px 24px;
+  }
+
+  .disclaimer {
+    margin-left: 24px;
+    margin-right: 24px;
+  }
+
+  .sites-grille {
+    flex-direction: column;
+    padding: 0 24px;
+  }
+
+  .site-image {
+    height: 160px;
+  }
+}

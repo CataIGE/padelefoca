@@ -1,0 +1,41 @@
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-texte">
+      <div class="numero">02 / ESPACE JOUEUR</div>
+      <h1 class="titre">Choisissez<br /><span class="titre-gris">votre site.</span></h1>
+    </div>
+  </div>
+
+  <!-- DISCLAIMER -->
+  <div class="disclaimer">
+    <span class="disclaimer-icon">ℹ️</span>
+    {{ getDisclaimer() }}
+  </div>
+
+  <!-- SITES -->
+  <div class="sites-grille">
+    @for (site of sites(); track site.id) {
+      <div
+        class="site-card"
+        [class.site-disponible]="estSiteDisponible(site)"
+        [class.site-grise]="!estSiteDisponible(site)"
+        (click)="allerCalendrier(site)"
+      >
+        <img [src]="getImageSite(site.nom)" [alt]="site.nom" class="site-image" />
+        <div class="site-contenu">
+          <h2 class="site-nom">{{ site.nom }}</h2>
+          <p class="site-adresse">{{ site.adresse }}</p>
+          <div class="site-terrains">{{ site.nombreTerrains }} terrains</div>
+          @if (!estSiteDisponible(site)) {
+            <div class="site-badge-grise">🔒 Non disponible</div>
+          } @else {
+            <div class="site-badge-dispo">Réserver →</div>
+          }
+        </div>
+      </div>
+    }
+  </div>
+
+</div>

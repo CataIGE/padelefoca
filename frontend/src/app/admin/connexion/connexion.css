@@ -29,7 +29,7 @@
   padding-top: 80px;
   background-color: var(--ink);
   overflow: hidden;
-  align-items: center;
+  //align-items: center;
 }
 
 .gauche-texte {
@@ -70,7 +70,7 @@
 }
 
 .photo {
-  width: 80%;
+  width: 75%;
   height: auto;
   object-fit: contain;
   border-radius: var(--radius-lg);
