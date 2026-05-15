@@ -1,0 +1,305 @@
+/* =====================
+   PAGE
+   ===================== */
+
+.page {
+  min-height: 100vh;
+  background-color: var(--bg);
+  display: flex;
+  flex-direction: column;
+}
+
+.conteneur {
+  display: flex;
+  flex: 1;
+  min-height: calc(100vh - 69px);
+}
+
+/* =====================
+   COLONNE GAUCHE
+   ===================== */
+
+.gauche {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 24px;
+  padding: 48px;
+  padding-top: 40px;
+  background-color: var(--bg);
+  overflow: hidden;
+}
+
+.btn-retour {
+  background: none;
+  border: 1px solid var(--ligne);
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 14px;
+  color: var(--ink-2);
+  cursor: pointer;
+  font-family: var(--font-corps);
+  transition: all 0.15s ease;
+  width: fit-content;
+}
+
+.btn-retour:hover {
+  background: var(--bg-2);
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.gauche-texte {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.numero {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-3);
+}
+
+.titre {
+  font-family: var(--font-titre);
+  font-size: clamp(36px, 4vw, 60px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin: 0;
+  color: var(--ink);
+}
+
+.titre-gris {
+  color: var(--ink-3);
+}
+
+.description {
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--ink-2);
+  margin: 0;
+}
+
+.photo {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  border-radius: var(--radius-lg);
+}
+
+/* =====================
+   COLONNE DROITE
+   ===================== */
+
+.droite {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  padding: 48px;
+  padding-top: 160px;
+  background-color: var(--bg-2);
+  gap: 24px;
+  overflow-y: auto;
+}
+
+/* =====================
+   AVERTISSEMENT
+   ===================== */
+
+.avertissement {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 20px;
+  background: #FFF7ED;
+  border: 1px solid #FED7AA;
+  border-radius: var(--radius);
+  font-size: 14px;
+  color: #92400E;
+}
+
+.avertissement-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+/* =====================
+   SECTIONS
+   ===================== */
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.section-titre {
+  font-family: var(--font-titre);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0;
+}
+
+/* =====================
+   TYPE DE MATCH
+   ===================== */
+
+.type-choix {
+  display: flex;
+  gap: 16px;
+}
+
+.type-card {
+  flex: 1;
+  padding: 20px;
+  border: 2px solid var(--ligne);
+  border-radius: var(--radius-lg);
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.type-card:hover {
+  border-color: var(--ink);
+}
+
+.type-actif {
+  border-color: var(--ink) !important;
+  background: var(--ink);
+  color: white;
+}
+
+.type-actif .type-description {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.type-icon {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.type-nom {
+  font-family: var(--font-titre);
+  font-size: 18px;
+  font-weight: 700;
+  margin: 0 0 6px;
+}
+
+.type-description {
+  font-size: 13px;
+  color: var(--ink-2);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* =====================
+   JOUEURS
+   ===================== */
+
+.joueurs-liste {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.champ {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.champ-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-2);
+}
+
+.champ-input {
+  padding: 14px 16px;
+  border: 1px solid var(--ligne);
+  border-radius: var(--radius);
+  font-size: 16px;
+  color: var(--ink);
+  background: white;
+  outline: none;
+  transition: border-color 0.15s ease;
+  font-family: var(--font-corps);
+}
+
+.champ-input:focus {
+  border-color: var(--ink);
+}
+
+/* =====================
+   ERREUR
+   ===================== */
+
+.erreur-msg {
+  padding: 12px 16px;
+  background: #FEE2E2;
+  border: 1px solid #FCA5A5;
+  border-radius: var(--radius);
+  font-size: 14px;
+  color: #DC2626;
+}
+
+/* =====================
+   BOUTON
+   ===================== */
+
+.btn-creer {
+  width: 100%;
+  padding: 16px;
+  background: var(--jaune);
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 var(--ink);
+  transition: all 0.15s ease;
+  font-family: var(--font-corps);
+}
+
+.btn-creer:hover:not(:disabled) {
+  box-shadow: 5px 5px 0 var(--ink);
+  transform: translate(-1px, -1px);
+}
+
+.btn-creer:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* =====================
+   RESPONSIVE MOBILE
+   ===================== */
+
+@media (max-width: 768px) {
+
+  .conteneur {
+    flex-direction: column;
+  }
+
+  .gauche {
+    padding: 24px;
+  }
+
+  .droite {
+    padding: 24px;
+  }
+
+  .type-choix {
+    flex-direction: column;
+  }
+}
