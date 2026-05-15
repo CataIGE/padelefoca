@@ -1,0 +1,65 @@
+import { Component, inject, signal } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { MatchService } from '../../services/match';
+
+@Component({
+  selector: 'app-match-creer',
+  imports: [FormsModule],
+  templateUrl: './match-creer.html',
+  styleUrl: './match-creer.css'
+})
+export class MatchCreer {
+
+  private route = inject(ActivatedRoute);
+  private router = inject(Router);
+  private matchService = inject(MatchService);
+
+  siteId: number = parseInt(this.route.snapshot.params['siteId']);
+  creneauId: number = parseInt(this.route.snapshot.params['creneau']);
+
+  typeMatch = signal<'PUBLIC' | 'PRIVE'>('PUBLIC');
+  joueur2: string = '';
+  joueur3: string = '';
+  joueur4: string = '';
+  erreur: string = '';
+  chargement: boolean = false;
+
+  choisirType(type: 'PUBLIC' | 'PRIVE') {
+    this.typeMatch.set(type);
+    this.erreur = '';
+  }
+
+  validerMatricule(matricule: string): boolean {
+    const regex = /^[LSG]\d{4}$/;
+    return regex.test(matricule);
+  }
+
+  creerMatch() {
+    if (this.typeMatch() === 'PRIVE') {
+      if (!this.joueur2 || !this.joueur3 || !this.joueur4) {
+        this.erreur = 'Veuillez entrer les matricules des 3 autres joueurs.';
+        return;
+      }
+      if (!this.validerMatricule(this.joueur2) || !this.validerMatricule(this.joueur3) || !this.validerMatricule(this.joueur4)) {
+        this.erreur = 'Un ou plusieurs matricules sont invalides. Format : L1234, S1234 ou G1234';
+        return;
+      }
+    }
+    this.erreur = '';
+    this.chargement = true;
+    const joueurs = this.typeMatch() === 'PRIVE' ? [this.joueur2, this.joueur3, this.joueur4] : [];
+    this.matchService.creerMatch(this.siteId, 1, '', this.typeMatch(), joueurs)
+      .subscribe({
+        next: () => this.router.navigate(['/joueur/calendrier', this.siteId]),
+        error: () => {
+          this.chargement = false;
+          this.erreur = 'Erreur lors de la création du match. Veuillez réessayer.';
+        }
+      });
+  }
+
+  retourCalendrier() {
+    this.router.navigate(['/joueur/calendrier', this.siteId]);
+  }
+}
