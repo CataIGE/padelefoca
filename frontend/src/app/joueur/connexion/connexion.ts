@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { Auth } from '../../services/auth';
+import { JoueurService } from '../../services/joueur';
 
 @Component({
   selector: 'app-connexion',
@@ -9,6 +11,10 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './connexion.css'
 })
 export class Connexion {
+
+  private router = inject(Router);
+  private authService = inject(Auth);
+  private joueurService = inject(JoueurService);
 
   ongletActif: string = 'connexion';
 
@@ -25,8 +31,6 @@ export class Connexion {
   // Messages
   erreur: string = '';
   matriculeGenere: string = '';
-
-  constructor(private router: Router) {}
 
   changerOnglet(onglet: string) {
     this.ongletActif = onglet;
@@ -45,7 +49,19 @@ export class Connexion {
       return;
     }
     this.erreur = '';
-    console.log('Connexion avec le matricule :', this.matricule);
+    this.authService.connexionJoueur(this.matricule).subscribe({
+      next: (joueur) => {
+        sessionStorage.setItem('matricule', joueur.matricule);
+        sessionStorage.setItem('typeMembre', joueur.typeMembre);
+        if (joueur.siteId) {
+          sessionStorage.setItem('siteId', joueur.siteId.toString());
+        }
+        this.router.navigate(['/joueur/sites']);
+      },
+      error: () => {
+        this.erreur = 'Matricule introuvable. Vérifiez votre matricule ou créez un compte.';
+      }
+    });
   }
 
   sInscrire() {
@@ -63,7 +79,14 @@ export class Connexion {
       return;
     }
     this.erreur = '';
-    this.matriculeGenere = 'L' + Math.floor(1000 + Math.random() * 9000);
-    console.log('Inscription réussie, matricule :', this.matriculeGenere);
+    this.joueurService.inscrire(this.nom, this.prenom, this.age, this.telephone, this.email)
+      .subscribe({
+        next: (joueur) => {
+          this.matriculeGenere = joueur.matricule;
+        },
+        error: () => {
+          this.erreur = 'Erreur lors de l\'inscription. Veuillez réessayer.';
+        }
+      });
   }
 }
