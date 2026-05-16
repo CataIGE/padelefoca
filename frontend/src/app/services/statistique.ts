@@ -8,12 +8,16 @@ export interface StatistiquesSite {
   chiffreAffaires: number;
   tauxRemplissage: number;
   nombreMatches: number;
+  nombreJoueurs: number;
+  nombreReservationsAnnee: number;
 }
 
 export interface StatistiquesGlobales {
   chiffreAffairesGlobal: number;
   tauxRemplissageGlobal: number;
   nombreMatchesGlobal: number;
+  nombreJoueursGlobal: number;
+  nombreReservationsAnneeGlobal: number;
   repartitionMembres: {
     libres: number;
     site: number;
