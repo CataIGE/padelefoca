@@ -1,0 +1,147 @@
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+  <div class="header-gauche">
+    <button class="btn-retour" (click)="retourAccueil()">← Retour</button>
+    <div class="header-texte">
+      <div class="numero">ESPACE ADMINISTRATEUR</div>
+      <h1 class="titre">Statistiques<br /><span class="titre-gris">du club.</span></h1>
+    </div>
+  </div>
+  <img [src]="getImageAdmin()" alt="Admin" class="admin-image" />
+</div>
+
+  <!-- TABS ADMIN GLOBAL -->
+  @if (estAdminGlobal()) {
+  <div class="tabs-container">
+    <div class="tabs">
+      <button
+        class="tab"
+        [class.tab-actif]="vueSelectionnee() === 'global'"
+        (click)="changerVue('global')"
+      >
+        Vue globale
+      </button>
+      <button
+        class="tab"
+        [class.tab-actif]="vueSelectionnee() === 'site' && siteSelectionne() === 1"
+        (click)="changerVue('site', 1)"
+      >
+        Bruxelles
+      </button>
+      <button
+        class="tab"
+        [class.tab-actif]="vueSelectionnee() === 'site' && siteSelectionne() === 2"
+        (click)="changerVue('site', 2)"
+      >
+        Gand
+      </button>
+      <button
+        class="tab"
+        [class.tab-actif]="vueSelectionnee() === 'site' && siteSelectionne() === 3"
+        (click)="changerVue('site', 3)"
+      >
+        Namur
+      </button>
+    </div>
+  </div>
+}
+
+  <!-- STATS SITE -->
+  @if (vueSelectionnee() === 'site' && statsSite()) {
+    <div class="stats-grille">
+
+      <div class="stat-card">
+        <div class="stat-icon">💰</div>
+        <div class="stat-valeur">{{ statsSite()!.chiffreAffaires }}€</div>
+        <div class="stat-label">Chiffre d'affaires</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">📈</div>
+        <div class="stat-valeur">{{ statsSite()!.tauxRemplissage }}%</div>
+        <div class="stat-label">Taux de remplissage</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">🎾</div>
+        <div class="stat-valeur">{{ statsSite()!.nombreMatches }}</div>
+        <div class="stat-label">Matches joués</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">👥</div>
+        <div class="stat-valeur">{{ statsSite()!.nombreJoueurs }}</div>
+        <div class="stat-label">Joueurs actifs</div>
+      </div>
+
+      <div class="stat-card stat-card-large">
+        <div class="stat-icon">📅</div>
+        <div class="stat-valeur">{{ statsSite()!.nombreReservationsAnnee }}</div>
+        <div class="stat-label">Réservations cette année</div>
+      </div>
+
+    </div>
+  }
+
+  <!-- STATS GLOBALES -->
+  @if (vueSelectionnee() === 'global' && statsGlobal()) {
+    <div class="stats-grille">
+
+      <div class="stat-card">
+        <div class="stat-icon">💰</div>
+        <div class="stat-valeur">{{ statsGlobal()!.chiffreAffairesGlobal }}€</div>
+        <div class="stat-label">Chiffre d'affaires global</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">📈</div>
+        <div class="stat-valeur">{{ statsGlobal()!.tauxRemplissageGlobal }}%</div>
+        <div class="stat-label">Taux de remplissage global</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">🎾</div>
+        <div class="stat-valeur">{{ statsGlobal()!.nombreMatchesGlobal }}</div>
+        <div class="stat-label">Matches joués</div>
+      </div>
+
+      <div class="stat-card">
+        <div class="stat-icon">👥</div>
+        <div class="stat-valeur">{{ statsGlobal()!.nombreJoueursGlobal }}</div>
+        <div class="stat-label">Joueurs actifs</div>
+      </div>
+
+      <div class="stat-card stat-card-large">
+        <div class="stat-icon">📅</div>
+        <div class="stat-valeur">{{ statsGlobal()!.nombreReservationsAnneeGlobal }}</div>
+        <div class="stat-label">Réservations cette année</div>
+      </div>
+
+    </div>
+
+    <!-- REPARTITION MEMBRES -->
+    <div class="repartition">
+      <h2 class="repartition-titre">Répartition des membres</h2>
+      <div class="repartition-grille">
+        <div class="repartition-card">
+          <div class="repartition-valeur">{{ statsGlobal()!.repartitionMembres.libres }}</div>
+          <div class="repartition-label">Membres libres</div>
+          <div class="repartition-badge badge-libre">L</div>
+        </div>
+        <div class="repartition-card">
+          <div class="repartition-valeur">{{ statsGlobal()!.repartitionMembres.site }}</div>
+          <div class="repartition-label">Membres de site</div>
+          <div class="repartition-badge badge-site">S</div>
+        </div>
+        <div class="repartition-card">
+          <div class="repartition-valeur">{{ statsGlobal()!.repartitionMembres.globaux }}</div>
+          <div class="repartition-label">Membres globaux</div>
+          <div class="repartition-badge badge-global">G</div>
+        </div>
+      </div>
+    </div>
+  }
+
+</div>
