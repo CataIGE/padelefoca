@@ -1,0 +1,106 @@
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-gauche">
+      <button class="btn-retour" (click)="retourAccueil()">← Retour</button>
+      <div class="numero">ESPACE ADMINISTRATEUR</div>
+      <h1 class="titre">Gestion des<br /><span class="titre-gris">admins.</span></h1>
+    </div>
+    <button class="btn-ajouter" (click)="ouvrirFormulaire()">
+      + Nouvel admin
+    </button>
+  </div>
+
+  <!-- FORMULAIRE -->
+  @if (afficherFormulaire()) {
+    <div class="formulaire-container">
+      <div class="formulaire-card">
+
+        <div class="formulaire-header">
+          <h2 class="formulaire-titre">
+            @if (adminEnEdition()) { Modifier un admin }
+            @else { Créer un admin }
+          </h2>
+          <button class="btn-fermer" (click)="fermerFormulaire()">✕</button>
+        </div>
+
+        <div class="formulaire-grille">
+          <div class="champ">
+            <label class="champ-label">PRÉNOM *</label>
+            <input class="champ-input" type="text" placeholder="Sophie" [(ngModel)]="prenom" />
+          </div>
+          <div class="champ">
+            <label class="champ-label">NOM *</label>
+            <input class="champ-input" type="text" placeholder="Martin" [(ngModel)]="nom" />
+          </div>
+          <div class="champ champ-full">
+            <label class="champ-label">EMAIL *</label>
+            <input class="champ-input" type="email" placeholder="admin@padelefoca.be" [(ngModel)]="email" />
+          </div>
+          @if (!adminEnEdition()) {
+            <div class="champ champ-full">
+              <label class="champ-label">MOT DE PASSE *</label>
+              <input class="champ-input" type="password" placeholder="••••••••" [(ngModel)]="motDePasse" />
+            </div>
+          }
+          <div class="champ">
+            <label class="champ-label">TYPE *</label>
+            <select class="champ-input" [(ngModel)]="typeAdmin">
+              <option value="SITE">Admin de site</option>
+              <option value="GLOBAL">Admin global</option>
+            </select>
+          </div>
+          @if (typeAdmin === 'SITE') {
+            <div class="champ">
+              <label class="champ-label">SITE *</label>
+              <select class="champ-input" [(ngModel)]="siteId">
+                <option [value]="1">Bruxelles</option>
+                <option [value]="2">Gand</option>
+                <option [value]="3">Namur</option>
+              </select>
+            </div>
+          }
+        </div>
+
+        @if (erreur) {
+          <div class="erreur-msg">{{ erreur }}</div>
+        }
+
+        <button class="btn-sauvegarder" (click)="sauvegarder()" [disabled]="chargement">
+          @if (chargement) { Sauvegarde... }
+          @else if (adminEnEdition()) { Modifier →}
+          @else { Créer →}
+        </button>
+
+      </div>
+    </div>
+  }
+
+  <!-- LISTE ADMINS -->
+  <div class="liste-container">
+    @for (admin of admins(); track admin.id) {
+      <div class="admin-card">
+        <div class="admin-avatar">
+          {{ admin.prenom[0] }}{{ admin.nom[0] }}
+        </div>
+        <div class="admin-info">
+          <div class="admin-nom">{{ admin.prenom }} {{ admin.nom }}</div>
+          <div class="admin-email">{{ admin.email }}</div>
+        </div>
+        <div class="admin-badges">
+          @if (admin.typeAdmin === 'GLOBAL') {
+            <span class="badge badge-global">⭐ Global</span>
+          } @else {
+            <span class="badge badge-site">📍 {{ getNomSite(admin.siteId) }}</span>
+          }
+        </div>
+        <div class="admin-actions">
+          <button class="btn-editer" (click)="editerAdmin(admin)">Modifier</button>
+          <button class="btn-supprimer" (click)="supprimerAdmin(admin)">Supprimer</button>
+        </div>
+      </div>
+    }
+  </div>
+
+</div>
