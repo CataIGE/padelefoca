@@ -13,6 +13,6 @@ export const routes: Routes = [
   { path: 'admin/connexion', loadComponent: () => import('./admin/connexion/connexion').then(m => m.ConnexionAdmin) },
   { path: 'admin/accueil', loadComponent: () => import('./admin/accueil/accueil').then(m => m.Accueil) },
   { path: 'admin/statistiques', loadComponent: () => import('./admin/statistiques/statistiques').then(m => m.Statistiques) },
-  // { path: 'admin/gestion', loadComponent: () => import('./admin/gestion/gestion').then(m => m.Gestion) },
+  { path: 'admin/gestion', loadComponent: () => import('./admin/gestion/gestion').then(m => m.Gestion) },
   { path: '**', redirectTo: '' }
 ];
