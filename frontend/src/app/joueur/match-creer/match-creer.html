@@ -102,3 +102,12 @@
 
       <!-- BOUTON -->
       <div class="section">
+        <button class="btn-creer" (click)="creerMatch()" [disabled]="chargement">
+          @if (chargement) { Création en cours... }
+          @else { Créer le match → }
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,0 +1,375 @@
+/* =====================
+   PAGE
+   ===================== */
+
+.page {
+  min-height: 100vh;
+  background-color: var(--bg);
+  padding-bottom: 80px;
+}
+
+/* =====================
+   HEADER
+   ===================== */
+
+.header {
+  padding: 40px 48px 32px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.btn-retour {
+  background: none;
+  border: 1px solid var(--ligne);
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 14px;
+  color: var(--ink-2);
+  cursor: pointer;
+  margin-bottom: 24px;
+  font-family: var(--font-corps);
+  transition: all 0.15s ease;
+}
+
+.btn-retour:hover {
+  background: var(--bg-2);
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+.numero {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-3);
+  margin-bottom: 12px;
+}
+
+.titre {
+  font-family: var(--font-titre);
+  font-size: clamp(36px, 4vw, 60px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin: 0;
+  color: var(--ink);
+}
+
+.titre-gris {
+  color: var(--ink-3);
+}
+
+/* =====================
+   CONTENU
+   ===================== */
+
+.contenu {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* =====================
+   CARTES
+   ===================== */
+
+.carte {
+  background: white;
+  border: 1px solid var(--ligne);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+}
+
+.carte-titre {
+  font-family: var(--font-titre);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 20px;
+}
+
+/* =====================
+   CARTE JOUEUR
+   ===================== */
+
+.carte-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--ink);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-titre);
+  font-size: 20px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.joueur-nom {
+  font-family: var(--font-titre);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--ink);
+  margin: 0 0 4px;
+}
+
+.joueur-matricule {
+  font-size: 14px;
+  color: var(--ink-3);
+  font-weight: 500;
+}
+
+.info-grille {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  padding-top: 20px;
+  border-top: 1px solid var(--ligne);
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.info-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-3);
+}
+
+.info-valeur {
+  font-size: 15px;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+/* =====================
+   CARTE TYPE MEMBRE
+   ===================== */
+
+.membre-badge {
+  display: inline-flex;
+  padding: 6px 14px;
+  background: var(--jaune);
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  width: fit-content;
+}
+
+.membre-disclaimer {
+  font-size: 14px;
+  color: var(--ink-2);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.penalite-msg {
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: #FEE2E2;
+  border: 1px solid #FCA5A5;
+  border-radius: var(--radius);
+  font-size: 14px;
+  color: #DC2626;
+}
+
+/* =====================
+   CARTE SOLDES
+   ===================== */
+
+.soldes-grille {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.solde-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.solde-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-3);
+}
+
+.solde-valeur {
+  font-family: var(--font-titre);
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.solde-du {
+  color: #DC2626;
+}
+
+.solde-credit {
+  color: #16A34A;
+}
+
+.solde-separateur {
+  width: 1px;
+  height: 48px;
+  background: var(--ligne);
+}
+
+/* =====================
+   RESERVATIONS
+   ===================== */
+
+.aucune-reservation {
+  text-align: center;
+  padding: 32px;
+  color: var(--ink-3);
+  font-size: 15px;
+}
+
+.reservations-liste {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.reservation-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: var(--bg);
+  border: 1px solid var(--ligne);
+  border-radius: var(--radius);
+}
+
+.reservation-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.reservation-date {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.reservation-montant {
+  font-size: 13px;
+  color: var(--ink-3);
+}
+
+.reservation-droite {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.reservation-statut {
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.statut-ouverte {
+  background: #FEF9C3;
+  color: #854D0E;
+}
+
+.statut-en-cours {
+  background: #DBEAFE;
+  color: #1D4ED8;
+}
+
+.statut-annulee {
+  background: #FEE2E2;
+  color: #DC2626;
+}
+
+.statut-payee {
+  background: #DCFCE7;
+  color: #16A34A;
+}
+
+.btn-payer {
+  padding: 8px 16px;
+  background: var(--jaune);
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--ink);
+  transition: all 0.15s ease;
+  font-family: var(--font-corps);
+}
+
+.btn-payer:hover {
+  box-shadow: 3px 3px 0 var(--ink);
+  transform: translate(-1px, -1px);
+}
+
+/* =====================
+   RESPONSIVE MOBILE
+   ===================== */
+
+@media (max-width: 768px) {
+
+  .header {
+    padding: 24px 24px 20px;
+  }
+
+  .contenu {
+    padding: 0 24px;
+  }
+
+  .carte {
+    padding: 20px;
+  }
+
+  .info-grille {
+    grid-template-columns: 1fr;
+  }
+
+  .soldes-grille {
+    gap: 20px;
+  }
+
+  .solde-valeur {
+    font-size: 28px;
+  }
+
+  .reservation-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+}

@@ -1,0 +1,102 @@
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <button class="btn-retour" (click)="retourSites()">← Retour</button>
+    <div class="header-texte">
+      <div class="numero">05 / ESPACE JOUEUR</div>
+      <h1 class="titre">Mon<br /><span class="titre-gris">profil.</span></h1>
+    </div>
+  </div>
+
+  <div class="contenu">
+
+    <!-- CARTE JOUEUR -->
+    <div class="carte">
+      <div class="carte-header">
+        <div class="avatar">{{ joueur().prenom[0] }}{{ joueur().nom[0] }}</div>
+        <div>
+          <h2 class="joueur-nom">{{ joueur().prenom }} {{ joueur().nom }}</h2>
+          <div class="joueur-matricule">{{ joueur().matricule }}</div>
+        </div>
+      </div>
+
+      <div class="info-grille">
+        <div class="info-item">
+          <span class="info-label">Email</span>
+          <span class="info-valeur">{{ joueur().email }}</span>
+        </div>
+        @if (joueur().telephone) {
+          <div class="info-item">
+            <span class="info-label">Téléphone</span>
+            <span class="info-valeur">{{ joueur().telephone }}</span>
+          </div>
+        }
+        <div class="info-item">
+          <span class="info-label">Âge</span>
+          <span class="info-valeur">{{ joueur().age }} ans</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARTE TYPE MEMBRE -->
+    <div class="carte">
+      <h3 class="carte-titre">Type de membre</h3>
+      <div class="membre-badge">{{ getLibelleTypeMembre() }}</div>
+      <p class="membre-disclaimer">{{ getDisclaimerTypeMembre() }}</p>
+
+      @if (joueur().penaliteActive) {
+        <div class="penalite-msg">
+          ⚠️ Vous avez une pénalité active. Vos réservations sont restreintes.
+        </div>
+      }
+    </div>
+
+    <!-- CARTE SOLDES -->
+    <div class="carte soldes-grille">
+      <div class="solde-item">
+        <span class="solde-label">Solde dû</span>
+        <span class="solde-valeur solde-du">{{ joueur().soldeDu }}€</span>
+      </div>
+      <div class="solde-separateur"></div>
+      <div class="solde-item">
+        <span class="solde-label">Crédit disponible</span>
+        <span class="solde-valeur solde-credit">{{ joueur().soldeCredit }}€</span>
+      </div>
+    </div>
+
+    <!-- CARTE RESERVATIONS -->
+    <div class="carte">
+      <h3 class="carte-titre">Mes réservations</h3>
+
+      @if (reservations().length === 0) {
+        <div class="aucune-reservation">
+          Aucune réservation pour le moment.
+        </div>
+      } @else {
+        <div class="reservations-liste">
+          @for (reservation of reservations(); track reservation.id) {
+            <div class="reservation-item">
+              <div class="reservation-info">
+                <div class="reservation-date">{{ reservation.dateReservation }}</div>
+                <div class="reservation-montant">{{ reservation.montant }}€</div>
+              </div>
+              <div class="reservation-droite">
+                <span class="reservation-statut" [class]="getClasseStatut(reservation.statut)">
+                  {{ reservation.statut }}
+                </span>
+                @if (reservation.statut === 'OUVERTE') {
+                  <button class="btn-payer" (click)="payer(reservation.id)">
+                    Payer
+                  </button>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      }
+    </div>
+
+  </div>
+
+</div>
