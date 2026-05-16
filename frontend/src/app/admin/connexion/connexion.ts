@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { Auth } from '../../services/auth';
 
 @Component({
   selector: 'app-connexion-admin',
@@ -10,12 +11,13 @@ import { FormsModule } from '@angular/forms';
 })
 export class ConnexionAdmin {
 
+  private router = inject(Router);
+  private authService = inject(Auth);
+
   email: string = '';
   motDePasse: string = '';
   erreur: string = '';
   motDePasseVisible: boolean = false;
-
-  constructor(private router: Router) {}
 
   seConnecter() {
     if (!this.email || !this.motDePasse) {
@@ -28,7 +30,20 @@ export class ConnexionAdmin {
       return;
     }
     this.erreur = '';
-    console.log('Connexion admin avec :', this.email);
+    this.authService.connexionAdmin(this.email, this.motDePasse).subscribe({
+      next: (response) => {
+        sessionStorage.setItem('token', response.token);
+        sessionStorage.setItem('role', response.admin.typeAdmin);
+        sessionStorage.setItem('email', this.email);
+        if (response.admin.siteId) {
+          sessionStorage.setItem('siteId', response.admin.siteId.toString());
+        }
+        this.router.navigate(['/admin/accueil']);
+      },
+      error: () => {
+        this.erreur = 'Email ou mot de passe incorrect.';
+      }
+    });
   }
 
   toggleMotDePasse() {
