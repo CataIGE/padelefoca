@@ -1,0 +1,64 @@
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="header-gauche">
+      <div class="numero">ESPACE ADMINISTRATEUR</div>
+      <h1 class="titre">Tableau de<br /><span class="titre-gris">bord.</span></h1>
+      <p class="sous-titre">Bienvenue, {{ email }}</p>
+    </div>
+    <button class="btn-deconnexion" (click)="seDeconnecter()">
+      Déconnexion →
+    </button>
+  </div>
+
+  <!-- CARDS + IMAGE -->
+  <div class="cards-et-image">
+
+    <div class="cards-grille">
+      <div class="nav-card nav-stats" (click)="allerStatistiques()">
+        <div class="nav-card-icon">📊</div>
+        <div class="nav-card-numero">01</div>
+        <h2 class="nav-card-titre">Statistiques</h2>
+        <p class="nav-card-description">
+          Consultez le chiffre d'affaires, le taux de remplissage
+          et le nombre de matches par site.
+        </p>
+        <div class="nav-card-lien">Voir les stats →</div>
+      </div>
+
+      @if (estAdminGlobal()) {
+        <div class="nav-card nav-gestion" (click)="allerGestion()">
+          <div class="nav-card-icon">⚙️</div>
+          <div class="nav-card-numero">02</div>
+          <h2 class="nav-card-titre">Gestion des admins</h2>
+          <p class="nav-card-description">
+            Créez, modifiez ou supprimez des administrateurs
+            de site ou globaux.
+          </p>
+          <div class="nav-card-lien">Gérer →</div>
+        </div>
+      }
+    </div>
+
+    <img [src]="getImageAdmin()" alt="Admin" class="admin-image" />
+
+  </div>
+
+     <!-- IMAGE ADMIN
+    <div class="admin-image-container">
+      <img [src]="getImageAdmin()" alt="Admin" class="admin-image" />
+     </div> -->
+
+  <!-- INFO ROLE -->
+  <div class="info-role">
+    @if (estAdminGlobal()) {
+      <span class="role-badge role-global">⭐ Administrateur global</span>
+      <p class="role-description">Vous avez accès à tous les sites et à la gestion des administrateurs.</p>
+    } @else {
+      <span class="role-badge role-site">📍 Administrateur de site</span>
+      <p class="role-description">Vous avez accès aux statistiques de votre site uniquement.</p>
+    }
+  </div>
+
+</div>

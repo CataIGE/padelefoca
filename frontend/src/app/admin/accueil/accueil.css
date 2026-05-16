@@ -1,0 +1,270 @@
+/* =====================
+   PAGE
+   ===================== */
+
+.page {
+  min-height: 100vh;
+  background-color: var(--bg);
+  padding-bottom: 80px;
+}
+
+/* =====================
+   HEADER
+   ===================== */
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 60px 48px 48px;
+  max-width: 1320px;
+  margin: 0 auto;
+}
+
+.header-droite {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.cards-et-image {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  max-width: 1420px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+.cards-grille {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  flex: 1;
+}
+
+.admin-image {
+  width: 700px;
+  height: auto;
+  object-fit: contain;
+  border-radius: var(--radius-lg);
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .cards-et-image {
+    flex-direction: column;
+    padding: 0 24px;
+  }
+
+  .admin-image {
+    width: 100%;
+  }
+}
+
+.numero {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ink-3);
+  margin-bottom: 12px;
+}
+
+.titre {
+  font-family: var(--font-titre);
+  font-size: clamp(40px, 5vw, 72px);
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin: 0 0 12px;
+  color: var(--ink);
+}
+
+.titre-gris {
+  color: var(--ink-3);
+}
+
+.sous-titre {
+  font-size: 16px;
+  color: var(--ink-2);
+  margin: 0;
+}
+
+.btn-deconnexion {
+  background: none;
+  border: 1px solid var(--ligne);
+  border-radius: 999px;
+  padding: 10px 20px;
+  font-size: 14px;
+  color: var(--ink-2);
+  cursor: pointer;
+  font-family: var(--font-corps);
+  transition: all 0.15s ease;
+  white-space: nowrap;
+  margin-top: 8px;
+}
+
+.btn-deconnexion:hover {
+  background: #FEE2E2;
+  border-color: #DC2626;
+  color: #DC2626;
+}
+
+/* =====================
+   CARDS NAVIGATION
+   ===================== */
+
+.cards-grille {
+  display: flex;
+  gap: 24px;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+.nav-card {
+  flex: 1;
+  padding: 40px;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid var(--ligne);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 500px;
+}
+
+.nav-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 6px 6px 0 var(--ink);
+  border-color: var(--ink);
+}
+
+.nav-stats {
+  background: var(--bleu);
+  color: white;
+  border-color: var(--bleu);
+}
+
+.nav-stats:hover {
+  border-color: var(--ink);
+}
+
+.nav-gestion {
+  background: var(--jaune);
+  color: var(--ink);
+  border-color: var(--jaune);
+}
+
+.nav-gestion:hover {
+  border-color: var(--ink);
+}
+
+.nav-card-icon {
+  font-size: 36px;
+}
+
+.nav-card-numero {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.6;
+}
+
+.nav-card-titre {
+  font-family: var(--font-titre);
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+.nav-card-description {
+  font-size: 15px;
+  line-height: 1.6;
+  margin: 0;
+  opacity: 0.8;
+}
+
+.nav-card-lien {
+  font-size: 15px;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+.nav-stats .nav-card-lien {
+  color: white;
+}
+
+/* =====================
+   INFO ROLE
+   ===================== */
+
+.info-role {
+  max-width: 1320px;
+  margin: 48px auto 0;
+  padding: 0 48px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.role-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.role-global {
+  background: var(--ink);
+  color: white;
+}
+
+.role-site {
+  background: var(--bg-2);
+  color: var(--ink-2);
+  border: 1px solid var(--ligne);
+}
+
+.role-description {
+  font-size: 14px;
+  color: var(--ink-3);
+  margin: 0;
+}
+
+/* =====================
+   RESPONSIVE MOBILE
+   ===================== */
+
+@media (max-width: 768px) {
+
+  .header {
+    flex-direction: column;
+    padding: 32px 24px 24px;
+    gap: 24px;
+  }
+
+  .cards-grille {
+    flex-direction: column;
+    padding: 0 24px;
+  }
+
+  .nav-card {
+    max-width: 100%;
+    padding: 28px;
+  }
+
+  .info-role {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 24px;
+  }
+}
