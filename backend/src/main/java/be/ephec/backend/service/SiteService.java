@@ -1,13 +1,19 @@
 package be.ephec.backend.service;
 
+import be.ephec.backend.dto.response.CreneauResponse;
 import be.ephec.backend.dto.response.SiteResponse;
 import be.ephec.backend.exception.NotFoundException;
-import be.ephec.backend.model.Site;
+import be.ephec.backend.model.*;
+import be.ephec.backend.model.enums.StatutMatch;
+import be.ephec.backend.model.enums.TypeMatch;
 import be.ephec.backend.repository.FermetureRepository;
+import be.ephec.backend.repository.MatchRepository;
+import be.ephec.backend.repository.ReservationRepository;
 import be.ephec.backend.repository.SiteRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,11 +23,17 @@ public class SiteService {
 
     private final SiteRepository siteRepository;
     private final FermetureRepository fermetureRepository;
+    private final MatchRepository matchRepository;
+    private final ReservationRepository reservationRepository;
 
     public SiteService(SiteRepository siteRepository,
-                       FermetureRepository fermetureRepository) {
+                       FermetureRepository fermetureRepository,
+                       MatchRepository matchRepository,
+                       ReservationRepository reservationRepository) {
         this.siteRepository = siteRepository;
         this.fermetureRepository = fermetureRepository;
+        this.matchRepository = matchRepository;
+        this.reservationRepository = reservationRepository;
     }
 
     public List<SiteResponse> getTousLesSites() {
@@ -49,18 +61,45 @@ public class SiteService {
         return fermetures.isEmpty();
     }
 
-    public List<LocalTime> genererCreneaux(Long siteId) {
+    public List<CreneauResponse> genererCreneauxAvecStatut(Long siteId, LocalDate date) {
         Site site = siteRepository.findById(siteId)
                 .orElseThrow(() -> new NotFoundException("Site introuvable"));
 
-        List<LocalTime> creneaux = new ArrayList<>();
-        LocalTime heure = site.getHeureOuverture();
-        int dureeSlot = be.ephec.backend.model.Constantes.DUREE_MATCH
-                + be.ephec.backend.model.Constantes.PAUSE_MATCH;
+        if (!estOuvert(siteId, date)) {
+            return List.of();
+        }
 
-        while (heure.plusMinutes(be.ephec.backend.model.Constantes.DUREE_MATCH)
+        List<CreneauResponse> creneaux = new ArrayList<>();
+        LocalTime heure = site.getHeureOuverture();
+        int dureeSlot = Constantes.DUREE_MATCH + Constantes.PAUSE_MATCH;
+
+        while (heure.plusMinutes(Constantes.DUREE_MATCH)
                 .isBefore(site.getHeureFermeture().plusSeconds(1))) {
-            creneaux.add(heure);
+
+            LocalDateTime dateHeure = date.atTime(heure);
+            List<Match> matchesCreneau = matchRepository.findByDateHeureBetween(
+                    dateHeure.minusMinutes(1), dateHeure.plusMinutes(1));
+
+            String statut = "LIBRE";
+            Long matchId = null;
+            int placesDisponibles = Constantes.NOMBRE_JOUEURS_MAX;
+
+            if (!matchesCreneau.isEmpty()) {
+                Match match = matchesCreneau.get(0);
+                matchId = match.getId();
+                long nbReservations = reservationRepository.findByMatchId(match.getId()).size();
+                placesDisponibles = (int) (Constantes.NOMBRE_JOUEURS_MAX - nbReservations);
+
+                if (match.getStatutMatch() == StatutMatch.COMPLET) {
+                    statut = "COMPLET";
+                } else if (match.getTypeMatch() == TypeMatch.PUBLIC) {
+                    statut = "MATCH_PUBLIC";
+                } else {
+                    statut = "MATCH_PRIVE";
+                }
+            }
+
+            creneaux.add(new CreneauResponse(heure.toString(), statut, matchId, placesDisponibles));
             heure = heure.plusMinutes(dureeSlot);
         }
 

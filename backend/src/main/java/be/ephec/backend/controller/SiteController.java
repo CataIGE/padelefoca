@@ -4,6 +4,7 @@ import be.ephec.backend.dto.response.SiteResponse;
 import be.ephec.backend.service.SiteService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import be.ephec.backend.dto.response.CreneauResponse;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -30,13 +31,10 @@ public class SiteController {
     }
 
     @GetMapping("/{siteId}/creneaux")
-    public ResponseEntity<List<LocalTime>> getCreneaux(
+    public ResponseEntity<List<CreneauResponse>> getCreneaux(
             @PathVariable Long siteId,
             @RequestParam String date) {
         LocalDate localDate = LocalDate.parse(date);
-        if (!siteService.estOuvert(siteId, localDate)) {
-            return ResponseEntity.ok(List.of());
-        }
-        return ResponseEntity.ok(siteService.genererCreneaux(siteId));
+        return ResponseEntity.ok(siteService.genererCreneauxAvecStatut(siteId, localDate));
     }
 }
