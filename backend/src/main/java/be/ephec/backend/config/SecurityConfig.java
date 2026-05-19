@@ -31,13 +31,14 @@ public class SecurityConfig {
                                 "/api/auth/**",
                                 "/api/joueurs/inscription",
                                 "/api/sites",
+                                "/api/sites/**",
                                 "/swagger-ui/**",
                                 "/swagger-ui.html",
                                 "/v3/api-docs/**"
                         ).permitAll()
-                        .requestMatchers("/api/admins/**", "/api/statistiques/global")
+                        .requestMatchers("/api/admin/**")
                         .hasAnyAuthority("ROLE_GLOBAL", "ROLE_SITE")
-                        .requestMatchers("/api/admins/gestion/**")
+                        .requestMatchers("/api/admin/gestion/**")
                         .hasAuthority("ROLE_GLOBAL")
                         .anyRequest().authenticated()
                 )
