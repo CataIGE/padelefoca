@@ -11,6 +11,8 @@ import be.ephec.backend.service.AdminService;
 import be.ephec.backend.service.StatistiqueService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import be.ephec.backend.dto.response.StatistiqueGlobaleResponse;
+import be.ephec.backend.dto.response.StatistiqueSiteResponse;
 
 import java.util.List;
 
@@ -69,5 +71,16 @@ public class AdminController {
             @PathVariable Long fermetureId) {
         adminService.supprimerFermeture(fermetureId);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/statistiques/global")
+    public ResponseEntity<StatistiqueGlobaleResponse> getStatistiquesGlobal() {
+        return ResponseEntity.ok(statistiqueService.getStatistiquesGlobal());
+    }
+
+    @GetMapping("/statistiques/site/{siteId}")
+    public ResponseEntity<StatistiqueSiteResponse> getStatistiquesSite(
+            @PathVariable Long siteId) {
+        return ResponseEntity.ok(statistiqueService.getStatistiquesSite(siteId));
     }
 }
