@@ -33,11 +33,11 @@ export class ConnexionAdmin {
     this.authService.connexionAdmin(this.email, this.motDePasse).subscribe({
       next: (response) => {
         sessionStorage.setItem('token', response.token);
-        sessionStorage.setItem('role', response.admin.typeAdmin);
+        sessionStorage.setItem('role', response.typeAdmin);
         sessionStorage.setItem('email', this.email);
-        if (response.admin.siteId) {
-          sessionStorage.setItem('siteId', response.admin.siteId.toString());
-        }
+        if (response.siteId) {
+          sessionStorage.setItem('siteId', response.siteId.toString());
+        } 
         this.router.navigate(['/admin/accueil']);
       },
       error: () => {
