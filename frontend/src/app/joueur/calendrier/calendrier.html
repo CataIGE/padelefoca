@@ -42,31 +42,21 @@
 
   <!-- CRENEAUX -->
   <div class="creneaux-liste">
-    @for (creneau of creneaux(); track creneau.id) {
+    @for (creneau of creneaux(); track creneau.heure) {
       <div
         class="creneau-card"
         [class]="getClasseCreneau(creneau)"
         (click)="clicCreneau(creneau)"
       >
         <div class="creneau-heure">
-          {{ creneau.dateHeure | slice:11:16 }}
-        </div>
-        <div class="creneau-terrain">
-          Terrain {{ creneau.terrainId }}
+          {{ creneau.heure | slice:0:5 }}
         </div>
         <div class="creneau-statut">
           @if (creneau.statut === 'LIBRE') { 🟢 Libre — Créer un match }
-          @else if (creneau.statut === 'MATCH_PUBLIC') { 🟠 Match public — Rejoindre }
+          @else if (creneau.statut === 'MATCH_PUBLIC') { 🟠 Match public — {{ creneau.placesDisponibles }} place(s) }
           @else if (creneau.statut === 'MATCH_PRIVE') { 🔒 Match privé }
           @else if (creneau.statut === 'COMPLET') { ⛔ Complet }
         </div>
-
-        @if (estOrganisateur(creneau)) {
-          <button class="btn-annuler" (click)="$event.stopPropagation()">
-            Annuler le match
-          </button>
-        }
-
       </div>
     }
 

@@ -1,4 +1,4 @@
-import { Component, inject, computed } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { SiteService } from '../../services/site';
@@ -15,14 +15,10 @@ export class Sites {
   private router = inject(Router);
   private siteService = inject(SiteService);
 
-  //sites = toSignal(this.siteService.getSites(), { initialValue: [] as Site[] });
-  sites = toSignal(this.siteService.getSites(), { 
-  initialValue: [
-    { id: 1, nom: 'Bruxelles', adresse: 'Avenue du Padel 1, 1000 Bruxelles', nombreTerrains: 3 },
-    { id: 2, nom: 'Gand', adresse: 'Padelstraat 2, 9000 Gand', nombreTerrains: 3 },
-    { id: 3, nom: 'Namur', adresse: 'Rue du Padel 3, 5000 Namur', nombreTerrains: 3 }
-  ] as Site[] 
+  sites = toSignal(this.siteService.getSites(), {
+    initialValue: [] as Site[]
   });
+
   typeMembre = sessionStorage.getItem('typeMembre') || 'LIBRE';
   siteIdMembre = sessionStorage.getItem('siteId') ? parseInt(sessionStorage.getItem('siteId')!) : null;
 
@@ -50,10 +46,10 @@ export class Sites {
   }
 
   getImageSite(nomSite: string): string {
-  const nom = nomSite.toLowerCase();
-  if (nom.includes('bruxelles')) return 'Bruxelles.png';
-  if (nom.includes('namur')) return 'Namur.png';
-  if (nom.includes('gand')) return 'Gand.png';
-  return 'logo.png';
+    const nom = nomSite.toLowerCase();
+    if (nom.includes('bruxelles')) return 'Bruxelles.png';
+    if (nom.includes('namur')) return 'Namur.png';
+    if (nom.includes('gand')) return 'Gand.png';
+    return 'logo.png';
   }
 }

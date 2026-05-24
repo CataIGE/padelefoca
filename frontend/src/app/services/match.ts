@@ -23,12 +23,12 @@ export class MatchService {
     return this.http.get<Match[]>(`${this.apiUrl}/matches/site/${siteId}`);
   }
 
-  creerMatch(siteId: number, terrainId: number, dateHeure: string, typeMatch: 'PUBLIC' | 'PRIVE', joueurs?: string[]): Observable<Match> {
-    return this.http.post<Match>(`${this.apiUrl}/matches`, { siteId, terrainId, dateHeure, typeMatch, joueurs });
+  creerMatch(siteId: number, dateHeure: string, typeMatch: 'PUBLIC' | 'PRIVE'): Observable<Match> {
+    return this.http.post<Match>(`${this.apiUrl}/matches`, { siteId, dateHeure, typeMatch });
   }
 
-  ajouterJoueur(matchId: number, matricule: string): Observable<Match> {
-    return this.http.post<Match>(`${this.apiUrl}/matches/${matchId}/joueurs`, { matricule });
+  ajouterJoueurs(matchId: number, matricules: string[]): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/matches/${matchId}/joueurs`, { matricules });
   }
 
   annulerMatch(matchId: number): Observable<void> {

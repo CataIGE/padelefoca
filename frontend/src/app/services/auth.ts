@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Joueur } from '../models/joueur.model';
-import { Admin } from '../models/admin.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,9 +14,8 @@ export class Auth {
   private router = inject(Router);
   private apiUrl = 'http://localhost:8080/api';
 
-  // JOUEUR
-  connexionJoueur(matricule: string): Observable<Joueur> {
-    return this.http.post<Joueur>(`${this.apiUrl}/auth/joueur/connexion`, { matricule })
+  connexionJoueur(matricule: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/auth/joueur/connexion`, { matricule })
       .pipe(
         tap(joueur => {
           sessionStorage.setItem('matricule', joueur.matricule);
@@ -26,13 +24,14 @@ export class Auth {
       );
   }
 
-  // ADMIN
-  connexionAdmin(email: string, motDePasse: string): Observable<{token: string, admin: Admin}> {
-    return this.http.post<{token: string, admin: Admin}>(`${this.apiUrl}/auth/admin/connexion`, { email, motDePasse })
+  connexionAdmin(email: string, motDePasse: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/auth/admin/connexion`, { email, motDePasse })
       .pipe(
         tap(response => {
           sessionStorage.setItem('token', response.token);
-          sessionStorage.setItem('role', response.admin.typeAdmin);
+          sessionStorage.setItem('role', response.typeAdmin);
+          sessionStorage.setItem('siteId', response.siteId);
+          sessionStorage.setItem('nom', response.nom);
         })
       );
   }
@@ -46,6 +45,8 @@ export class Auth {
   deconnexionAdmin() {
     sessionStorage.removeItem('token');
     sessionStorage.removeItem('role');
+    sessionStorage.removeItem('siteId');
+    sessionStorage.removeItem('nom');
     this.router.navigate(['/admin/connexion']);
   }
 
