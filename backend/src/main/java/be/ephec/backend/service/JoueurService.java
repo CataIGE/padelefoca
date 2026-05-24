@@ -24,6 +24,9 @@ public class JoueurService {
     }
 
     public JoueurResponse inscrire(InscriptionJoueurRequest request) {
+        if (joueurRepository.existsByEmail(request.getEmail())) {
+            throw new BadRequestException("Un compte existe déjà avec cet email");
+        }
         String matricule = genererMatricule("L");
         MembreLibre joueur = new MembreLibre();
         joueur.setMatricule(matricule);
