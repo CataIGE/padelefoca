@@ -16,7 +16,7 @@ export class MatchCreer {
   private matchService = inject(MatchService);
 
   siteId: number = parseInt(this.route.snapshot.params['siteId']);
-  creneauId: number = parseInt(this.route.snapshot.params['creneau']);
+  dateHeure: string = this.route.snapshot.queryParams['dateHeure'] || '';
 
   typeMatch = signal<'PUBLIC' | 'PRIVE'>('PUBLIC');
   joueur2: string = '';
@@ -46,12 +46,26 @@ export class MatchCreer {
         return;
       }
     }
+
     this.erreur = '';
     this.chargement = true;
-    const joueurs = this.typeMatch() === 'PRIVE' ? [this.joueur2, this.joueur3, this.joueur4] : [];
-    this.matchService.creerMatch(this.siteId, 1, '', this.typeMatch(), joueurs)
+
+    this.matchService.creerMatch(this.siteId, this.dateHeure, this.typeMatch())
       .subscribe({
-        next: () => this.router.navigate(['/joueur/calendrier', this.siteId]),
+        next: (match) => {
+          if (this.typeMatch() === 'PRIVE') {
+            const matricules = [this.joueur2, this.joueur3, this.joueur4];
+            this.matchService.ajouterJoueurs(match.id, matricules).subscribe({
+              next: () => this.router.navigate(['/joueur/calendrier', this.siteId]),
+              error: () => {
+                this.chargement = false;
+                this.erreur = 'Match créé mais erreur lors de l\'ajout des joueurs.';
+              }
+            });
+          } else {
+            this.router.navigate(['/joueur/calendrier', this.siteId]);
+          }
+        },
         error: () => {
           this.chargement = false;
           this.erreur = 'Erreur lors de la création du match. Veuillez réessayer.';

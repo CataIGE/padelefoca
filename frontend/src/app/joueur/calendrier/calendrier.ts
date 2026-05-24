@@ -53,13 +53,14 @@ export class Calendrier {
     }
   }
 
-  estOrganisateur(creneau: Creneau): boolean {
-    return false;
-  }
-
   clicCreneau(creneau: Creneau) {
     if (creneau.statut === 'LIBRE') {
-      this.router.navigate(['/joueur/match/creer', this.siteId, creneau.id]);
+      const dateHeure = `${this.dateSelectionnee()}T${creneau.heure}`;
+      this.router.navigate(['/joueur/match/creer', this.siteId], {
+        queryParams: { dateHeure }
+      });
+    } else if (creneau.statut === 'MATCH_PUBLIC' && creneau.matchId) {
+      this.router.navigate(['/joueur/match', creneau.matchId]);
     }
   }
 
@@ -69,12 +70,11 @@ export class Calendrier {
 
   getCreneauxMock(): Creneau[] {
     return [
-      { id: 1, siteId: this.siteId, terrainId: 1, dateHeure: '2024-05-15T09:00:00', statut: 'LIBRE' },
-      { id: 2, siteId: this.siteId, terrainId: 1, dateHeure: '2024-05-15T10:30:00', statut: 'MATCH_PUBLIC' },
-      { id: 3, siteId: this.siteId, terrainId: 2, dateHeure: '2024-05-15T12:00:00', statut: 'COMPLET' },
-      { id: 4, siteId: this.siteId, terrainId: 2, dateHeure: '2024-05-15T14:00:00', statut: 'LIBRE' },
-      { id: 5, siteId: this.siteId, terrainId: 3, dateHeure: '2024-05-15T15:30:00', statut: 'MATCH_PRIVE' },
-      { id: 6, siteId: this.siteId, terrainId: 3, dateHeure: '2024-05-15T17:00:00', statut: 'LIBRE' },
+      { heure: '09:00:00', statut: 'LIBRE', placesDisponibles: 4 },
+      { heure: '10:45:00', statut: 'MATCH_PUBLIC', matchId: 1, placesDisponibles: 2 },
+      { heure: '12:30:00', statut: 'COMPLET', matchId: 2, placesDisponibles: 0 },
+      { heure: '14:15:00', statut: 'LIBRE', placesDisponibles: 4 },
+      { heure: '16:00:00', statut: 'MATCH_PRIVE', matchId: 3, placesDisponibles: 1 },
     ];
   }
 }
