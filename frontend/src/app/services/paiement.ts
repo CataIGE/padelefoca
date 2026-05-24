@@ -11,8 +11,9 @@ export class PaiementService {
   private http = inject(HttpClient);
   private apiUrl = 'http://localhost:8080/api';
 
+
   payerPlace(reservationId: number): Observable<Paiement> {
-    return this.http.post<Paiement>(`${this.apiUrl}/paiements/${reservationId}`, {});
+    return this.http.post<Paiement>(`${this.apiUrl}/paiements`, { reservationId });
   }
 
   getPaiements(): Observable<Paiement[]> {
