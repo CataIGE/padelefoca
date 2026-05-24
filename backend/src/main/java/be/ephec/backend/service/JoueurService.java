@@ -53,13 +53,13 @@ public class JoueurService {
         Joueur joueur = joueurRepository.findByMatricule(matricule)
                 .orElseThrow(() -> new NotFoundException("Joueur introuvable"));
 
-        int reservations = joueur.getNombreReservationsSansPenalite();
+        if (joueur.getNombreReservationsSansPenalite() >= 6
+                && joueur.getTypeMembre() != TypeMembre.GLOBAL) {
 
-        if (reservations >= 6 && joueur.getTypeMembre() != TypeMembre.GLOBAL) {
             String nouveauMatricule = "G" + matricule.substring(1);
+            joueurRepository.updateDtype(matricule);
             joueur.setTypeMembre(TypeMembre.GLOBAL);
             joueur.setMatricule(nouveauMatricule);
-            // Convertir en MembreGlobal
             joueurRepository.save(joueur);
         }
     }
