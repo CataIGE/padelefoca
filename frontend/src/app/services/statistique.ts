@@ -34,10 +34,10 @@ export class StatistiqueService {
   private apiUrl = 'http://localhost:8080/api';
 
   getStatistiquesSite(siteId: number): Observable<StatistiquesSite> {
-    return this.http.get<StatistiquesSite>(`${this.apiUrl}/statistiques/site/${siteId}`);
+    return this.http.get<StatistiquesSite>(`${this.apiUrl}/admin/statistiques/site/${siteId}`);
   }
 
   getStatistiquesGlobales(): Observable<StatistiquesGlobales> {
-    return this.http.get<StatistiquesGlobales>(`${this.apiUrl}/statistiques/global`);
+    return this.http.get<StatistiquesGlobales>(`${this.apiUrl}/admin/statistiques/global`);
   }
 }
