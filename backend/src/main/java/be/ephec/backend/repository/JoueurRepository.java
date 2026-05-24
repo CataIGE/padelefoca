@@ -21,4 +21,6 @@ public interface JoueurRepository extends JpaRepository<Joueur, Long> {
     @Transactional
     @Query(value = "UPDATE joueur SET dtype = 'GLOBAL' WHERE matricule = :matricule", nativeQuery = true)
     void updateDtype(@Param("matricule") String matricule);
+
+    boolean existsByEmail(String email);
 }

@@ -27,7 +27,7 @@
         <div class="site-contenu">
           <h2 class="site-nom">{{ site.nom }}</h2>
           <p class="site-adresse">{{ site.adresse }}</p>
-          <div class="site-terrains">{{ site.nombreTerrains }} terrains</div>
+          <div class="site-terrains">🕐 {{ site.heureOuverture | slice:0:5 }} - {{ site.heureFermeture | slice:0:5 }}</div>
           @if (!estSiteDisponible(site)) {
             <div class="site-badge-grise">🔒 Non disponible</div>
           } @else {
