@@ -3,10 +3,11 @@ import { Router } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { SiteService } from '../../services/site';
 import { Site } from '../../models/site.model';
+import { SlicePipe } from '@angular/common';
 
 @Component({
   selector: 'app-sites',
-  imports: [],
+  imports: [SlicePipe],
   templateUrl: './sites.html',
   styleUrl: './sites.css'
 })
