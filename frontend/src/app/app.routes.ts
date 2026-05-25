@@ -27,7 +27,7 @@ export const routes: Routes = [
   { path: 'joueur/connexion', loadComponent: () => import('./joueur/connexion/connexion').then(m => m.Connexion) },
   { path: 'joueur/sites', loadComponent: () => import('./joueur/sites/sites').then(m => m.Sites), canActivate: [joueurGuard] },
   { path: 'joueur/calendrier/:siteId', loadComponent: () => import('./joueur/calendrier/calendrier').then(m => m.Calendrier), canActivate: [joueurGuard] },
-  { path: 'joueur/match/creer/:siteId/:creneau', loadComponent: () => import('./joueur/match-creer/match-creer').then(m => m.MatchCreer), canActivate: [joueurGuard] },
+  { path: 'joueur/match/creer/:siteId', loadComponent: () => import('./joueur/match-creer/match-creer').then(m => m.MatchCreer), canActivate: [joueurGuard] },
   { path: 'joueur/profil', loadComponent: () => import('./joueur/profil/profil').then(m => m.Profil), canActivate: [joueurGuard] },
   { path: 'admin/connexion', loadComponent: () => import('./admin/connexion/connexion').then(m => m.ConnexionAdmin) },
   { path: 'admin/accueil', loadComponent: () => import('./admin/accueil/accueil').then(m => m.Accueil), canActivate: [adminGuard] },
