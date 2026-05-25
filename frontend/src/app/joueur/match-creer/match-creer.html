@@ -4,6 +4,9 @@
     <!-- COLONNE GAUCHE -->
     <div class="gauche">
       <button class="btn-retour" (click)="retourCalendrier()">← Retour</button>
+        <button class="btn-profil" (click)="allerProfil()" style="background: #f0f9ff; border: 2px solid #0ea5e9; border-radius: 25px; padding: 0.75rem 1.75rem; font-size: 1.2rem; font-weight: 700; cursor: pointer; color: #0369a1; margin-top: 1rem;">
+          🦭 Profil — {{ getMatricule() }}
+        </button>
       <div class="gauche-texte">
         <div class="numero">04 / ESPACE JOUEUR</div>
         <h1 class="titre">Créer un<br /><span class="titre-gris">match.</span></h1>

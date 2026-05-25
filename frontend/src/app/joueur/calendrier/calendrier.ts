@@ -91,4 +91,12 @@ export class Calendrier {
       { heure: '16:00:00', statut: 'MATCH_PRIVE', matchId: 3, placesDisponibles: 1 },
     ];
   }
+
+  allerProfil() {
+    this.router.navigate(['/joueur/profil']);
+  }
+  
+  getMatricule(): string {
+    return sessionStorage.getItem('matricule') || '';
+  }
 }
