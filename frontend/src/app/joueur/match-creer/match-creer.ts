@@ -58,14 +58,14 @@ export class MatchCreer {
           if (this.typeMatch() === 'PRIVE') {
             const matricules = [this.joueur2, this.joueur3, this.joueur4];
             this.matchService.ajouterJoueurs(match.id, matricules).subscribe({
-              next: () => this.router.navigate(['/joueur/calendrier', this.siteId]),
+              next: () => this.router.navigate(['/joueur/profil']),
               error: () => {
                 this.chargement = false;
                 this.erreur = 'Match créé mais erreur lors de l\'ajout des joueurs.';
               }
             });
           } else {
-            this.router.navigate(['/joueur/calendrier', this.siteId]);
+            this.router.navigate(['/joueur/profil']);
           }
         },
         error: () => {
