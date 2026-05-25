@@ -53,4 +53,19 @@ export class Sites {
     if (nom.includes('gand')) return 'Gand.png';
     return 'logo.png';
   }
+
+  getJourFermeture(site: Site): string {
+  if (!site.joursRepos || site.joursRepos.length === 0) return 'inconnu';
+  const jours: { [key: string]: string } = {
+    'MONDAY': 'lundi',
+    'TUESDAY': 'mardi',
+    'WEDNESDAY': 'mercredi',
+    'THURSDAY': 'jeudi',
+    'FRIDAY': 'vendredi',
+    'SATURDAY': 'samedi',
+    'SUNDAY': 'dimanche'
+  };
+  return site.joursRepos.map(j => jours[j] || j).join(', ');
+}
+
 }
