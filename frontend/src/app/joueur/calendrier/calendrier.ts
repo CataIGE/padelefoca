@@ -71,7 +71,7 @@ export class Calendrier {
         queryParams: { dateHeure }
       });
     } else if (creneau.statut === 'MATCH_PUBLIC' && creneau.matchId) {
-      this.matchService.rejoindreMatch(creneau.matchId).subscribe({
+        this.matchService.rejoindreMatch(creneau.matchId!).subscribe({
         next: () => this.router.navigate(['/joueur/profil']),
         error: (err: any) => this.erreur.set(err?.error?.message || 'Erreur lors de la réservation.')
       });

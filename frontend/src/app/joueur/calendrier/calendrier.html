@@ -43,6 +43,11 @@
   </div>
 
   <!-- CRENEAUX -->
+  @if (erreur()) {
+    <div class="erreur-msg" style="background: #fee2e2; color: #991b1b; padding: 1rem; border-radius: 8px; margin: 1rem 0;">
+      ⚠️ {{ erreur() }}
+    </div>
+  }
   <div class="creneaux-liste">
     @for (creneau of creneaux(); track creneau.heure) {
       <div
