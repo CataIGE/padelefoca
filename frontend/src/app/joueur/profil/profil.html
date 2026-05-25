@@ -39,9 +39,13 @@
       <h3 class="carte-titre">Type de membre</h3>
       <div class="membre-badge">{{ getLibelleTypeMembre() }}</div>
       <p class="membre-disclaimer">{{ getDisclaimerTypeMembre() }}</p>
-      @if (joueur().penaliteActive) {
+     @if (joueur().penaliteActive) {
         <div class="penalite-msg">
           ⚠️ Vous avez une pénalité active. Vos réservations sont restreintes.
+        </div>
+      } @else {
+        <div class="penalite-ok">
+          ✅ Aucune pénalité active.
         </div>
       }
     </div>
