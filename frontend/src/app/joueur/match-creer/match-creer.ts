@@ -3,9 +3,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatchService } from '../../services/match';
 
+import { SlicePipe } from '@angular/common';
+
 @Component({
   selector: 'app-match-creer',
-  imports: [FormsModule],
+  imports: [FormsModule, SlicePipe],
   templateUrl: './match-creer.html',
   styleUrl: './match-creer.css'
 })
