@@ -20,7 +20,6 @@
           <div class="joueur-matricule">{{ joueur().matricule }}</div>
         </div>
       </div>
-
       <div class="info-grille">
         <div class="info-item">
           <span class="info-label">Email</span>
@@ -40,7 +39,6 @@
       <h3 class="carte-titre">Type de membre</h3>
       <div class="membre-badge">{{ getLibelleTypeMembre() }}</div>
       <p class="membre-disclaimer">{{ getDisclaimerTypeMembre() }}</p>
-
       @if (joueur().penaliteActive) {
         <div class="penalite-msg">
           ⚠️ Vous avez une pénalité active. Vos réservations sont restreintes.
@@ -64,7 +62,6 @@
     <!-- CARTE RESERVATIONS -->
     <div class="carte">
       <h3 class="carte-titre">Mes réservations</h3>
-
       @if (reservations().length === 0) {
         <div class="aucune-reservation">
           Aucune réservation pour le moment.
@@ -74,14 +71,17 @@
           @for (reservation of reservations(); track reservation.id) {
             <div class="reservation-item">
               <div class="reservation-info">
-                <div class="reservation-date">{{ reservation.dateReservation }}</div>
-                <div class="reservation-montant">{{ reservation.montant }}€</div>
+                <div class="reservation-date">
+                  {{ reservation.dateHeureMatch | slice:8:10 }}/{{ reservation.dateHeureMatch | slice:5:7 }}/{{ reservation.dateHeureMatch | slice:0:4 }} à {{ reservation.dateHeureMatch | slice:11:16 }}
+                </div>
+                <div class="reservation-terrain">{{ reservation.siteNom }} — {{ reservation.terrainNom }}</div>
+                <div class="reservation-montant">{{ reservation.montantDu }}€</div>
               </div>
               <div class="reservation-droite">
-                <span class="reservation-statut" [class]="getClasseStatut(reservation.statut)">
-                  {{ reservation.statut }}
+                <span class="reservation-statut" [class]="getClasseStatut(reservation.statutReservation)">
+                  {{ reservation.statutReservation }}
                 </span>
-                @if (reservation.statut === 'OUVERTE') {
+                @if (reservation.statutReservation === 'EN_ATTENTE') {
                   <button class="btn-payer" (click)="payer(reservation.id)">
                     Payer
                   </button>

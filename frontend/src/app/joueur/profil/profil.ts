@@ -5,10 +5,11 @@ import { JoueurService } from '../../services/joueur';
 import { PaiementService } from '../../services/paiement';
 import { Joueur } from '../../models/joueur.model';
 import { Reservation } from '../../models/reservation.model';
+import { SlicePipe } from '@angular/common';
 
 @Component({
   selector: 'app-profil',
-  imports: [],
+  imports: [SlicePipe],
   templateUrl: './profil.html',
   styleUrl: './profil.css'
 })
@@ -55,18 +56,21 @@ export class Profil {
 
   getClasseStatut(statut: string): string {
     switch (statut) {
-      case 'OUVERTE': return 'statut-ouverte';
-      case 'EN_COURS': return 'statut-en-cours';
+      case 'EN_ATTENTE': return 'statut-ouverte';
+      case 'CONFIRMEE': return 'statut-payee';
       case 'ANNULEE': return 'statut-annulee';
-      case 'PAYEE': return 'statut-payee';
       default: return '';
     }
   }
 
   payer(reservationId: number) {
     this.paiementService.payerPlace(reservationId).subscribe({
-      next: () => console.log('Paiement effectué'),
-      error: () => console.log('Erreur paiement')
+      next: () => {
+        window.location.reload();
+      },
+      error: (err: any) => {
+        console.log('Erreur paiement:', err);
+      }
     });
   }
 
