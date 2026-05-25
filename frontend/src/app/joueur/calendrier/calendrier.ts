@@ -29,6 +29,14 @@ export class Calendrier {
     return new Date().toISOString().split('T')[0];
   }
 
+  getDateMax(): string {
+    const typeMembre = sessionStorage.getItem('typeMembre') || 'LIBRE';
+    const jours = typeMembre === 'GLOBAL' ? 21 : typeMembre === 'SITE' ? 14 : 5;
+    const date = new Date();
+    date.setDate(date.getDate() + jours);
+    return date.toISOString().split('T')[0];
+  }
+
   chargerCreneaux() {
     this.siteService.getCreneaux(this.siteId, this.dateSelectionnee())
       .subscribe({

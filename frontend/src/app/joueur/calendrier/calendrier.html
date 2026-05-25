@@ -16,6 +16,8 @@
       class="date-input"
       type="date"
       [value]="dateSelectionnee()"
+      [min]="getDateAujourdhui()"
+      [max]="getDateMax()"
       (change)="changerDate($event)"
     />
   </div>
