@@ -111,6 +111,13 @@ public class MatchService {
             Joueur joueur = joueurRepository.findByMatricule(matricule)
                     .orElseThrow(() -> new NotFoundException("Joueur avec matricule " + matricule + " introuvable"));
 
+            boolean dejaInscrit = reservationsExistantes.stream()
+                    .anyMatch(r -> r.getJoueur().getMatricule().equals(matricule));
+
+            if (dejaInscrit) {
+                continue;
+            }
+
             Reservation reservation = new Reservation();
             reservation.setMatch(match);
             reservation.setJoueur(joueur);
