@@ -5,6 +5,7 @@ import { SiteService } from '../../services/site';
 import { Site } from '../../models/site.model';
 import { SlicePipe } from '@angular/common';
 
+
 @Component({
   selector: 'app-sites',
   imports: [SlicePipe],
@@ -65,7 +66,15 @@ export class Sites {
     'SATURDAY': 'samedi',
     'SUNDAY': 'dimanche'
   };
-  return site.joursRepos.map(j => jours[j] || j).join(', ');
-}
+    return site.joursRepos.map(j => jours[j] || j).join(', ');
+  }
+
+  allerProfil() {
+    this.router.navigate(['/joueur/profil']);
+  }
+  
+  getMatricule(): string {
+    return sessionStorage.getItem('matricule') || '';
+  }
 
 }

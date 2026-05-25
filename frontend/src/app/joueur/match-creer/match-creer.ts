@@ -74,4 +74,12 @@ export class MatchCreer {
   retourCalendrier() {
     this.router.navigate(['/joueur/calendrier', this.siteId]);
   }
+
+   allerProfil() {
+    this.router.navigate(['/joueur/profil']);
+  }
+  
+  getMatricule(): string {
+    return sessionStorage.getItem('matricule') || '';
+  }
 }
