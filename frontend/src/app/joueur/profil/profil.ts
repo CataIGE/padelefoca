@@ -77,4 +77,11 @@ export class Profil {
   retourSites() {
     this.router.navigate(['/joueur/sites']);
   }
+
+  annuler(reservationId: number) {
+    this.joueurService.annulerReservation(reservationId).subscribe({
+      next: () => window.location.reload(),
+      error: (err: any) => console.log('Erreur annulation:', err)
+    });
+  }
 }
