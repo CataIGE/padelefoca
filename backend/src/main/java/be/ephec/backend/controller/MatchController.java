@@ -56,4 +56,12 @@ public class MatchController {
     public ResponseEntity<List<MatchResponse>> getMatchsBySite(@PathVariable Long siteId) {
         return ResponseEntity.ok(matchService.getMatchsBySite(siteId));
     }
+
+    @PostMapping("/{matchId}/rejoindre")
+    public ResponseEntity<Void> rejoindreMatch(
+            @PathVariable Long matchId,
+            @RequestHeader("X-Matricule") String matricule) {
+        matchService.rejoindreMatchPublic(matricule, matchId);
+        return ResponseEntity.ok().build();
+    }
 }
