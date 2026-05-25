@@ -1,6 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SiteService } from '../../services/site';
+import { MatchService } from '../../services/match';
 import { Creneau } from '../../models/site.model';
 import { SlicePipe } from '@angular/common';
 
@@ -15,11 +16,13 @@ export class Calendrier {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private siteService = inject(SiteService);
+  private matchService = inject(MatchService);
 
   siteId: number = parseInt(this.route.snapshot.params['siteId']);
   dateSelectionnee = signal<string>(this.getDateAujourdhui());
   creneaux = signal<Creneau[]>([]);
   matricule = sessionStorage.getItem('matricule') || '';
+  erreur = signal<string>('');
 
   constructor() {
     this.chargerCreneaux();
@@ -68,7 +71,10 @@ export class Calendrier {
         queryParams: { dateHeure }
       });
     } else if (creneau.statut === 'MATCH_PUBLIC' && creneau.matchId) {
-      this.router.navigate(['/joueur/match', creneau.matchId]);
+      this.matchService.rejoindreMatch(creneau.matchId).subscribe({
+        next: () => this.router.navigate(['/joueur/profil']),
+        error: (err: any) => this.erreur.set(err?.error?.message || 'Erreur lors de la réservation.')
+      });
     }
   }
 
