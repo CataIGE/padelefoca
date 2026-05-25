@@ -49,8 +49,8 @@ public class DataInitializer implements CommandLineRunner {
             Site gand = new Site();
             gand.setNom("Gand");
             gand.setAdresse("Padelstraat 2, 9000 Gand");
-            gand.setHeureOuverture(LocalTime.of(8, 0));
-            gand.setHeureFermeture(LocalTime.of(22, 0));
+            gand.setHeureOuverture(LocalTime.of(9, 0));
+            gand.setHeureFermeture(LocalTime.of(21, 0));
             gand.setJoursRepos(Set.of(DayOfWeek.TUESDAY));
             siteRepository.save(gand);
             creerTerrain("Leonard", gand);
@@ -61,8 +61,8 @@ public class DataInitializer implements CommandLineRunner {
             Site namur = new Site();
             namur.setNom("Namur");
             namur.setAdresse("Rue du Padel 3, 5000 Namur");
-            namur.setHeureOuverture(LocalTime.of(8, 0));
-            namur.setHeureFermeture(LocalTime.of(22, 0));
+            namur.setHeureOuverture(LocalTime.of(10, 0));
+            namur.setHeureFermeture(LocalTime.of(23, 0));
             namur.setJoursRepos(Set.of(DayOfWeek.THURSDAY));
             siteRepository.save(namur);
             creerTerrain("Voldy", namur);
