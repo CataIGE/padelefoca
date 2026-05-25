@@ -159,4 +159,52 @@ public class MatchService {
                 matricules
         );
     }
+
+    public void rejoindreMatchPublic(String matricule, Long matchId) {
+        Joueur joueur = joueurRepository.findByMatricule(matricule)
+                .orElseThrow(() -> new NotFoundException("Joueur introuvable"));
+
+        if (joueur.isPenaliteActive()) {
+            throw new BadRequestException("Vous avez une pénalité active");
+        }
+
+        if (joueur.getSoldeDu() > 0) {
+            throw new BadRequestException("Vous avez un solde dû impayé");
+        }
+
+        Match match = matchRepository.findById(matchId)
+                .orElseThrow(() -> new NotFoundException("Match introuvable"));
+
+        if (match.getTypeMatch() != TypeMatch.PUBLIC) {
+            throw new BadRequestException("Ce match n'est pas public");
+        }
+
+        if (match.getStatutMatch() != StatutMatch.PLANIFIE) {
+            throw new BadRequestException("Ce match n'est plus disponible");
+        }
+
+        List<Reservation> reservationsExistantes = reservationRepository.findByMatchId(matchId);
+
+        if (reservationsExistantes.size() >= Constantes.NOMBRE_JOUEURS_MAX) {
+            throw new BadRequestException("Ce match est complet");
+        }
+
+        boolean dejaInscrit = reservationsExistantes.stream()
+                .anyMatch(r -> r.getJoueur().getMatricule().equals(matricule));
+
+        if (dejaInscrit) {
+            throw new BadRequestException("Vous êtes déjà inscrit à ce match");
+        }
+
+        Reservation reservation = new Reservation();
+        reservation.setMatch(match);
+        reservation.setJoueur(joueur);
+        reservation.setStatutReservation(be.ephec.backend.model.enums.StatutReservation.EN_ATTENTE);
+        reservationRepository.save(reservation);
+
+        if (reservationsExistantes.size() + 1 == Constantes.NOMBRE_JOUEURS_MAX) {
+            match.setStatutMatch(StatutMatch.COMPLET);
+            matchRepository.save(match);
+        }
+    }
 }
