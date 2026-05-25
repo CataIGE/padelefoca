@@ -2,7 +2,6 @@ import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatchService } from '../../services/match';
-
 import { SlicePipe } from '@angular/common';
 
 @Component({
@@ -24,12 +23,12 @@ export class MatchCreer {
   joueur2: string = '';
   joueur3: string = '';
   joueur4: string = '';
-  erreur: string = '';
+  erreur = signal<string>('');
   chargement: boolean = false;
 
   choisirType(type: 'PUBLIC' | 'PRIVE') {
     this.typeMatch.set(type);
-    this.erreur = '';
+    this.erreur.set('');
   }
 
   validerMatricule(matricule: string): boolean {
@@ -40,16 +39,16 @@ export class MatchCreer {
   creerMatch() {
     if (this.typeMatch() === 'PRIVE') {
       if (!this.joueur2 || !this.joueur3 || !this.joueur4) {
-        this.erreur = 'Veuillez entrer les matricules des 3 autres joueurs.';
+        this.erreur.set('Veuillez entrer les matricules des 3 autres joueurs.');
         return;
       }
       if (!this.validerMatricule(this.joueur2) || !this.validerMatricule(this.joueur3) || !this.validerMatricule(this.joueur4)) {
-        this.erreur = 'Un ou plusieurs matricules sont invalides. Format : L1234, S1234 ou G1234';
+        this.erreur.set('Un ou plusieurs matricules sont invalides. Format : L1234, S1234 ou G1234');
         return;
       }
     }
 
-    this.erreur = '';
+    this.erreur.set('');
     this.chargement = true;
 
     this.matchService.creerMatch(this.siteId, this.dateHeure, this.typeMatch())
@@ -59,19 +58,16 @@ export class MatchCreer {
             const matricules = [this.joueur2, this.joueur3, this.joueur4];
             this.matchService.ajouterJoueurs(match.id, matricules).subscribe({
               next: () => this.router.navigate(['/joueur/profil']),
-              error: () => {
+              error: (err: any) => {
                 this.chargement = false;
-                this.erreur = 'Match créé mais erreur lors de l\'ajout des joueurs.';
+                this.erreur.set(err?.error?.message || 'Match créé mais erreur lors de l\'ajout des joueurs.');
               }
             });
           } else {
             this.router.navigate(['/joueur/profil']);
           }
         },
-        error: () => {
-          this.chargement = false;
-          this.erreur = 'Erreur lors de la création du match. Veuillez réessayer.';
-        }
+        
       });
   }
 

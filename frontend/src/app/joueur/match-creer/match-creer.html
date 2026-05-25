@@ -101,8 +101,8 @@
       }
 
       <!-- ERREUR -->
-      @if (erreur) {
-        <div class="erreur-msg">{{ erreur }}</div>
+      @if (erreur()) {
+        <div class="erreur-msg">{{ erreur() }}</div>
       }
 
       <!-- BOUTON -->
