@@ -34,4 +34,8 @@ export class MatchService {
   annulerMatch(matchId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/matches/${matchId}`);
   }
+
+  rejoindreMatch(matchId: number): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/matches/${matchId}/rejoindre`, {});
+  }
 }
