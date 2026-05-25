@@ -332,6 +332,20 @@
   font-family: var(--font-corps);
 }
 
+.btn-annuler {
+  padding: 8px 16px;
+  background: #ff8c00;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 2px 2px 0 var(--ink);
+  transition: all 0.15s ease;
+  font-family: var(--font-corps);
+}
+
 .btn-payer:hover {
   box-shadow: 3px 3px 0 var(--ink);
   transform: translate(-1px, -1px);

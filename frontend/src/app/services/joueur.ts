@@ -23,4 +23,8 @@ export class JoueurService {
   getReservations(): Observable<Reservation[]> {
     return this.http.get<Reservation[]>(`${this.apiUrl}/joueurs/reservations`);
   }
+
+  annulerReservation(reservationId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/reservations/${reservationId}`);
+  }
 }

@@ -39,7 +39,7 @@
       <h3 class="carte-titre">Type de membre</h3>
       <div class="membre-badge">{{ getLibelleTypeMembre() }}</div>
       <p class="membre-disclaimer">{{ getDisclaimerTypeMembre() }}</p>
-     @if (joueur().penaliteActive) {
+      @if (joueur().penaliteActive) {
         <div class="penalite-msg">
           ⚠️ Vous avez une pénalité active. Vos réservations sont restreintes.
         </div>
@@ -86,9 +86,10 @@
                   {{ reservation.statutReservation }}
                 </span>
                 @if (reservation.statutReservation === 'EN_ATTENTE') {
-                  <button class="btn-payer" (click)="payer(reservation.id)">
-                    Payer
-                  </button>
+                  <button class="btn-payer" (click)="payer(reservation.id)">Payer</button>
+                }
+                @if (reservation.statutReservation === 'EN_ATTENTE' || reservation.statutReservation === 'CONFIRMEE') {
+                  <button class="btn-annuler" (click)="annuler(reservation.id)">Annuler</button>
                 }
               </div>
             </div>
