@@ -24,7 +24,6 @@ export class Connexion {
   // Champs inscription
   nom: string = '';
   prenom: string = '';
-  age: number | null = null;
   telephone: string = '';
   email: string = '';
 
@@ -65,12 +64,8 @@ export class Connexion {
   }
 
   sInscrire() {
-    if (!this.nom || !this.prenom || !this.age || !this.email) {
-      this.erreur = 'Veuillez remplir tous les champs.';
-      return;
-    }
-    if (this.age < 16 || this.age > 99) {
-      this.erreur = 'L\'âge doit être compris entre 16 et 99 ans.';
+    if (!this.nom || !this.prenom || !this.email) {
+      this.erreur = 'Veuillez remplir tous les champs obligatoires.';
       return;
     }
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -79,13 +74,13 @@ export class Connexion {
       return;
     }
     this.erreur = '';
-    this.joueurService.inscrire(this.nom, this.prenom, this.age, this.telephone, this.email)
+    this.joueurService.inscrire(this.nom, this.prenom, this.telephone, this.email)
       .subscribe({
         next: (joueur) => {
           this.matriculeGenere = joueur.matricule;
         },
-        error: () => {
-          this.erreur = 'Erreur lors de l\'inscription. Veuillez réessayer.';
+        error: (err: any) => {
+          this.erreur = err?.error?.message || 'Erreur lors de l\'inscription. Veuillez réessayer.';
         }
       });
   }
