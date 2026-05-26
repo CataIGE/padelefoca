@@ -88,6 +88,17 @@ public class MatchScheduler {
         } else if (placesOccupees < Constantes.NOMBRE_JOUEURS_MAX) {
             match.setStatutMatch(StatutMatch.PLANIFIE);
         }
+
+        // Calcul soldeDu pour l'organisateur si match public incomplet
+        if (match.getTypeMatch() == TypeMatch.PUBLIC && placesOccupees > 0
+                && placesOccupees < Constantes.NOMBRE_JOUEURS_MAX) {
+            long placesManquantes = Constantes.NOMBRE_JOUEURS_MAX - placesOccupees;
+            double soldeDu = placesManquantes * Constantes.PRIX_PAR_JOUEUR;
+            Joueur organisateur = match.getOrganisateur();
+            organisateur.setSoldeDu(organisateur.getSoldeDu() + soldeDu);
+            joueurRepository.save(organisateur);
+        }
+
         matchRepository.save(match);
     }
 }
