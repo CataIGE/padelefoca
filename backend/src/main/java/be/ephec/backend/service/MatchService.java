@@ -196,7 +196,10 @@ public class MatchService {
             throw new BadRequestException("Ce match n'est plus disponible");
         }
 
-        List<Reservation> reservationsExistantes = reservationRepository.findByMatchId(matchId);
+        List<Reservation> reservationsExistantes = reservationRepository.findByMatchId(matchId)
+                .stream()
+                .filter(r -> r.getStatutReservation() != be.ephec.backend.model.enums.StatutReservation.ANNULEE)
+                .toList();
 
         if (reservationsExistantes.size() >= Constantes.NOMBRE_JOUEURS_MAX) {
             throw new BadRequestException("Ce match est complet");
