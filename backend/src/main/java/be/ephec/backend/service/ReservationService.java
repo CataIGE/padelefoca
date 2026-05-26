@@ -10,9 +10,9 @@ import be.ephec.backend.repository.JoueurRepository;
 import be.ephec.backend.repository.MatchRepository;
 import be.ephec.backend.repository.ReservationRepository;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.util.List;
+import be.ephec.backend.model.enums.TypeMatch;
 
 @Service
 public class ReservationService {
@@ -110,6 +110,7 @@ public class ReservationService {
 
         Match match = reservation.getMatch();
         if (match.getStatutMatch() == StatutMatch.COMPLET) {
+            match.setTypeMatch(TypeMatch.PUBLIC);
             match.setStatutMatch(StatutMatch.PLANIFIE);
             matchRepository.save(match);
         }

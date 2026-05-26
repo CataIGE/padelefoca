@@ -87,7 +87,10 @@ public class SiteService {
             if (!matchesCreneau.isEmpty()) {
                 Match match = matchesCreneau.get(0);
                 matchId = match.getId();
-                long nbReservations = reservationRepository.findByMatchId(match.getId()).size();
+                long nbReservations = reservationRepository.findByMatchId(match.getId())
+                        .stream()
+                        .filter(r -> r.getStatutReservation() != be.ephec.backend.model.enums.StatutReservation.ANNULEE)
+                        .count();
                 placesDisponibles = (int) (Constantes.NOMBRE_JOUEURS_MAX - nbReservations);
 
                 if (match.getStatutMatch() == StatutMatch.COMPLET) {
