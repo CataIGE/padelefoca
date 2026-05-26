@@ -19,7 +19,7 @@
       class="date-input"
       type="date"
       [value]="dateSelectionnee()"
-      [min]="getDateAujourdhui()"
+      [min]="getDateMin()"
       [max]="getDateMax()"
       (change)="changerDate($event)"
     />
@@ -63,8 +63,9 @@
         </div>
         <div class="creneau-statut">
           @if (creneau.statut === 'LIBRE') { 🟢 Libre — Créer un match }
-          @else if (creneau.statut === 'MATCH_PUBLIC') { 🟠 Match public — {{ creneau.placesDisponibles }} place(s) }
+          @else if (creneau.statut === 'MATCH_PUBLIC' && creneau.placesDisponibles > 0) { 🟠 Match public — {{ creneau.placesDisponibles }} place(s) }
           @else if (creneau.statut === 'MATCH_PRIVE') { 🔒 Match privé }
+          @else if (creneau.statut === 'MATCH_PUBLIC' && creneau.placesDisponibles === 0) { ⛔ Complet }
           @else if (creneau.statut === 'COMPLET') { ⛔ Complet }
         </div>
       </div>
