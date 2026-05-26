@@ -19,7 +19,7 @@ export class Calendrier {
   private matchService = inject(MatchService);
 
   siteId: number = parseInt(this.route.snapshot.params['siteId']);
-  dateSelectionnee = signal<string>(this.getDateAujourdhui());
+  dateSelectionnee = signal<string>(this.getDateMin());
   creneaux = signal<Creneau[]>([]);
   matricule = sessionStorage.getItem('matricule') || '';
   erreur = signal<string>('');
@@ -30,6 +30,12 @@ export class Calendrier {
 
   getDateAujourdhui(): string {
     return new Date().toISOString().split('T')[0];
+  }
+
+  getDateMin(): string {
+    const demain = new Date();
+    demain.setDate(demain.getDate() + 1);
+    return demain.toISOString().split('T')[0];
   }
 
   getDateMax(): string {
@@ -70,8 +76,8 @@ export class Calendrier {
       this.router.navigate(['/joueur/match/creer', this.siteId], {
         queryParams: { dateHeure }
       });
-    } else if (creneau.statut === 'MATCH_PUBLIC' && creneau.matchId) {
-        this.matchService.rejoindreMatch(creneau.matchId!).subscribe({
+    } else if (creneau.statut === 'MATCH_PUBLIC' && creneau.matchId && creneau.placesDisponibles > 0) {
+      this.matchService.rejoindreMatch(creneau.matchId!).subscribe({
         next: () => this.router.navigate(['/joueur/profil']),
         error: (err: any) => this.erreur.set(err?.error?.message || 'Erreur lors de la réservation.')
       });
