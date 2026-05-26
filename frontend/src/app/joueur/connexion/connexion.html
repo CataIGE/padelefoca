@@ -55,8 +55,8 @@
               <span class="champ-hint">Format : L, S ou G suivi de 4 chiffres</span>
             </div>
 
-            @if (erreur) {
-              <div class="erreur-msg">{{ erreur }}</div>
+            @if (erreur()) {
+              <div class="erreur-msg">{{ erreur() }}</div>
             }
 
             <button class="btn-connexion" (click)="seConnecter()">
@@ -116,17 +116,17 @@
               />
             </div>
 
-            @if (erreur) {
-              <div class="erreur-msg">{{ erreur }}</div>
+            @if (erreur()) {
+              <div class="erreur-msg">{{ erreur() }}</div>
             }
 
-            @if (matriculeGenere) {
+            @if (matriculeGenere()) {
               <div class="succes-msg">
-                ✓ Inscription réussie ! Ton matricule est <strong>{{ matriculeGenere }}</strong>
+                ✓ Inscription réussie ! Ton matricule est <strong>{{ matriculeGenere() }}</strong>
               </div>
             }
 
-            <button class="btn-connexion" (click)="sInscrire()">
+            <button class="btn-connexion" (click)="sInscrire()" [disabled]="!!matriculeGenere()">
               Générer mon matricule →
             </button>
 
