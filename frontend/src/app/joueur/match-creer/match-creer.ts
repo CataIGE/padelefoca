@@ -52,23 +52,26 @@ export class MatchCreer {
     this.chargement = true;
 
     this.matchService.creerMatch(this.siteId, this.dateHeure, this.typeMatch())
-      .subscribe({
-        next: (match) => {
-          if (this.typeMatch() === 'PRIVE') {
-            const matricules = [this.joueur2, this.joueur3, this.joueur4];
-            this.matchService.ajouterJoueurs(match.id, matricules).subscribe({
-              next: () => this.router.navigate(['/joueur/profil']),
-              error: (err: any) => {
-                this.chargement = false;
-                this.erreur.set(err?.error?.message || 'Match créé mais erreur lors de l\'ajout des joueurs.');
-              }
-            });
-          } else {
-            this.router.navigate(['/joueur/profil']);
-          }
-        },
-        
-      });
+    .subscribe({
+      next: (match) => {
+        if (this.typeMatch() === 'PRIVE') {
+          const matricules = [this.joueur2, this.joueur3, this.joueur4];
+          this.matchService.ajouterJoueurs(match.id, matricules).subscribe({
+            next: () => this.router.navigate(['/joueur/profil']),
+            error: (err: any) => {
+              this.chargement = false;
+              this.erreur.set(err?.error?.message || 'Match créé mais erreur lors de l\'ajout des joueurs.');
+            }
+          });
+        } else {
+          this.router.navigate(['/joueur/profil']);
+        }
+      },
+      error: (err: any) => {
+        this.chargement = false;
+        this.erreur.set(err?.error?.message || 'Erreur lors de la création du match.');
+      }
+    });
   }
 
   retourCalendrier() {
