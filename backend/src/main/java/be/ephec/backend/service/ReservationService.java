@@ -66,6 +66,9 @@ public class ReservationService {
         reservation.setStatutReservation(StatutReservation.EN_ATTENTE);
         reservationRepository.save(reservation);
 
+        joueur.setSoldeDu(joueur.getSoldeDu() + Constantes.PRIX_PAR_JOUEUR);
+        joueurRepository.save(joueur);
+
         if (reservationsExistantes.size() + 1 == Constantes.NOMBRE_JOUEURS_MAX) {
             match.setStatutMatch(StatutMatch.COMPLET);
             matchRepository.save(match);
@@ -90,6 +93,17 @@ public class ReservationService {
         if (!reservation.getJoueur().getMatricule().equals(matricule)) {
             throw new BadRequestException("Vous ne pouvez pas annuler la réservation d'un autre joueur");
         }
+
+        Joueur joueur = reservation.getJoueur();
+
+        if (reservation.getStatutReservation() == StatutReservation.CONFIRMEE) {
+            // Réservation payée → rembourser en crédit
+            joueur.setSoldeCredit(joueur.getSoldeCredit() + Constantes.PRIX_PAR_JOUEUR);
+        } else if (reservation.getStatutReservation() == StatutReservation.EN_ATTENTE) {
+            // Réservation non payée → enlever du soldeDu
+            joueur.setSoldeDu(Math.max(0, joueur.getSoldeDu() - Constantes.PRIX_PAR_JOUEUR));
+        }
+        joueurRepository.save(joueur);
 
         reservation.setStatutReservation(StatutReservation.ANNULEE);
         reservationRepository.save(reservation);

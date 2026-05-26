@@ -69,6 +69,9 @@ public class MatchService {
         reservation.setStatutReservation(be.ephec.backend.model.enums.StatutReservation.EN_ATTENTE);
         reservationRepository.save(reservation);
 
+        organisateur.setSoldeDu(organisateur.getSoldeDu() + Constantes.PRIX_PAR_JOUEUR);
+        joueurRepository.save(organisateur);
+
         return toResponse(match);
     }
 
@@ -123,6 +126,9 @@ public class MatchService {
             reservation.setJoueur(joueur);
             reservation.setStatutReservation(be.ephec.backend.model.enums.StatutReservation.EN_ATTENTE);
             reservationRepository.save(reservation);
+
+            joueur.setSoldeDu(joueur.getSoldeDu() + Constantes.PRIX_PAR_JOUEUR);
+            joueurRepository.save(joueur);
         }
 
         if (placesOccupees + request.getMatricules().size() == Constantes.NOMBRE_JOUEURS_MAX) {
@@ -208,6 +214,9 @@ public class MatchService {
         reservation.setJoueur(joueur);
         reservation.setStatutReservation(be.ephec.backend.model.enums.StatutReservation.EN_ATTENTE);
         reservationRepository.save(reservation);
+
+        joueur.setSoldeDu(joueur.getSoldeDu() + Constantes.PRIX_PAR_JOUEUR);
+        joueurRepository.save(joueur);
 
         if (reservationsExistantes.size() + 1 == Constantes.NOMBRE_JOUEURS_MAX) {
             match.setStatutMatch(StatutMatch.COMPLET);

@@ -69,6 +69,9 @@ public class PaiementService {
         reservation.setStatutReservation(StatutReservation.CONFIRMEE);
         reservationRepository.save(reservation);
 
+        joueur.setSoldeDu(Math.max(0, joueur.getSoldeDu() - Constantes.PRIX_PAR_JOUEUR));
+        joueurRepository.save(joueur);
+
         joueur.setNombreReservationsSansPenalite(
                 joueur.getNombreReservationsSansPenalite() + 1);
         joueurRepository.save(joueur);
