@@ -16,4 +16,5 @@ public class ConnexionJoueurResponse {
     private String nom;
     private String prenom;
     private TypeMembre typeMembre;
+    private Long siteId;
 }

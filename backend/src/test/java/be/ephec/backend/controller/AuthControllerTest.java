@@ -31,7 +31,7 @@ public class AuthControllerTest extends AbstractUnitTest {
         request.setMatricule("L0001");
 
         ConnexionJoueurResponse response = new ConnexionJoueurResponse(
-                "L0001", "Dupont", "Jean", TypeMembre.LIBRE
+                "L0001", "Dupont", "Jean", TypeMembre.LIBRE, null
         );
 
         when(authService.connexionJoueur(any())).thenReturn(response);

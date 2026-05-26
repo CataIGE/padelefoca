@@ -39,7 +39,8 @@ public class AuthService {
                 joueur.getMatricule(),
                 joueur.getNom(),
                 joueur.getPrenom(),
-                joueur.getTypeMembre()
+                joueur.getTypeMembre(),
+                joueur.getSite() != null ? joueur.getSite().getId() : null
         );
     }
 
