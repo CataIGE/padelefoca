@@ -10,6 +10,7 @@ import be.ephec.backend.model.enums.StatutReservation;
 import be.ephec.backend.repository.JoueurRepository;
 import be.ephec.backend.repository.PaiementRepository;
 import be.ephec.backend.repository.ReservationRepository;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -21,13 +22,16 @@ public class PaiementService {
     private final PaiementRepository paiementRepository;
     private final ReservationRepository reservationRepository;
     private final JoueurRepository joueurRepository;
+    private final JoueurService joueurService;
 
     public PaiementService(PaiementRepository paiementRepository,
                            ReservationRepository reservationRepository,
-                           JoueurRepository joueurRepository) {
+                           JoueurRepository joueurRepository,
+                           @Lazy JoueurService joueurService) {
         this.paiementRepository = paiementRepository;
         this.reservationRepository = reservationRepository;
         this.joueurRepository = joueurRepository;
+        this.joueurService = joueurService;
     }
 
     public PaiementResponse payerMatch(String matricule, PaiementRequest request) {
@@ -75,6 +79,8 @@ public class PaiementService {
         joueur.setNombreReservationsSansPenalite(
                 joueur.getNombreReservationsSansPenalite() + 1);
         joueurRepository.save(joueur);
+
+        joueurService.verifierEtAppliquerPromotion(matricule);
 
         return toResponse(paiement);
     }
