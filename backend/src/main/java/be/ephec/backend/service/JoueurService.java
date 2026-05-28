@@ -116,13 +116,25 @@ public class JoueurService {
     }
 
     private String genererMatricule(String prefix) {
+        List<Integer> numerosExistants = joueurRepository.findAll()
+                .stream()
+                .map(Joueur::getMatricule)
+                .map(m -> Integer.parseInt(m.substring(1)))
+                .collect(java.util.stream.Collectors.toList());
+
         String dernierMatricule = joueurRepository.findAll()
                 .stream()
                 .map(Joueur::getMatricule)
                 .filter(m -> m.startsWith(prefix))
                 .max(String::compareTo)
                 .orElse(prefix + "0000");
+
         int numero = Integer.parseInt(dernierMatricule.substring(1)) + 1;
+
+        while (numerosExistants.contains(numero)) {
+            numero++;
+        }
+
         return prefix + String.format("%04d", numero);
     }
 
