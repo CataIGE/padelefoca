@@ -66,7 +66,21 @@ export class Profil {
   payer(reservationId: number) {
     this.paiementService.payerPlace(reservationId).subscribe({
       next: () => {
-        window.location.reload();
+        // Vérifier si le matricule a changé (promotion)
+        this.joueurService.getProfil().subscribe({
+          next: (joueurMisAJour) => {
+            const ancienMatricule = sessionStorage.getItem('matricule');
+            if (joueurMisAJour.matricule !== ancienMatricule) {
+              sessionStorage.setItem('matricule', joueurMisAJour.matricule);
+              sessionStorage.setItem('typeMembre', joueurMisAJour.typeMembre);
+              if (joueurMisAJour.typeMembre === 'GLOBAL') {
+                sessionStorage.removeItem('siteId');
+              }
+            }
+            window.location.reload();
+          },
+          error: () => window.location.reload()
+        });
       },
       error: (err: any) => {
         console.log('Erreur paiement:', err);
