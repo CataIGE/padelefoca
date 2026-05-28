@@ -17,10 +17,20 @@ public interface JoueurRepository extends JpaRepository<Joueur, Long> {
 
     boolean existsByMatricule(String matricule);
 
+    boolean existsByEmail(String email);
+
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE joueur SET dtype = 'SITE' WHERE matricule = :matricule", nativeQuery = true)
+    void updateDtypeToSite(@Param("matricule") String matricule);
+
     @Modifying
     @Transactional
     @Query(value = "UPDATE joueur SET dtype = 'GLOBAL' WHERE matricule = :matricule", nativeQuery = true)
     void updateDtype(@Param("matricule") String matricule);
 
-    boolean existsByEmail(String email);
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE joueur SET matricule = :nouveauMatricule WHERE matricule = :ancienMatricule", nativeQuery = true)
+    void updateMatricule(@Param("ancienMatricule") String ancienMatricule, @Param("nouveauMatricule") String nouveauMatricule);
 }
