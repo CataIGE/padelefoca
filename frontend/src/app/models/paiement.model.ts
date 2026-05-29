@@ -6,4 +6,5 @@ export interface Paiement {
   datePaiement: string;
   statut: 'EN_ATTENTE' | 'PAYE' | 'REMBOURSE';
   nouveauTypeMembre: string | null;
+  siteId: number | null;
 }
