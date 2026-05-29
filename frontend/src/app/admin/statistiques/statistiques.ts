@@ -17,8 +17,11 @@ export class Statistiques {
   siteId = sessionStorage.getItem('siteId') ? parseInt(sessionStorage.getItem('siteId')!) : 1;
 
   vueSelectionnee = signal<'site' | 'global'>(
-  sessionStorage.getItem('role') === 'GLOBAL' ? 'global' : 'site');
-  siteSelectionne = signal<number>(1);
+    sessionStorage.getItem('role') === 'GLOBAL' ? 'global' : 'site'
+  );
+  siteSelectionne = signal<number>(
+    sessionStorage.getItem('siteId') ? parseInt(sessionStorage.getItem('siteId')!) : 1
+  );
   statsSite = signal<StatistiquesSite | null>(null);
   statsGlobal = signal<StatistiquesGlobales | null>(null);
 
@@ -44,10 +47,11 @@ export class Statistiques {
         })
       });
     } else {
-      this.statistiqueService.getStatistiquesSite(this.siteSelectionne()).subscribe({
+      const siteIdACharger = this.estAdminGlobal() ? this.siteSelectionne() : this.siteId;
+      this.statistiqueService.getStatistiquesSite(siteIdACharger).subscribe({
         next: (stats) => this.statsSite.set(stats),
         error: () => this.statsSite.set({
-          siteId: this.siteSelectionne(),
+          siteId: siteIdACharger,
           nomSite: 'Bruxelles',
           chiffreAffaires: 4200,
           tauxRemplissage: 68,
