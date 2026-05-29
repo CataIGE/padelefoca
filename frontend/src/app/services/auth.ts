@@ -20,6 +20,11 @@ export class Auth {
         tap(joueur => {
           sessionStorage.setItem('matricule', joueur.matricule);
           sessionStorage.setItem('typeMembre', joueur.typeMembre);
+          if (joueur.siteId) {
+            sessionStorage.setItem('siteId', joueur.siteId.toString());
+          } else {
+            sessionStorage.removeItem('siteId');
+          }
         })
       );
   }
