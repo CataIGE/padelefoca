@@ -87,6 +87,7 @@ public class PaiementService {
 
         PaiementResponse response = toResponse(paiement);
         response.setNouveauTypeMembre(nouveauTypeMembre);
+        response.setSiteId(joueurMisAJour.getSite() != null ? joueurMisAJour.getSite().getId() : null);
         return response;
 
     }
@@ -109,6 +110,7 @@ public class PaiementService {
                 paiement.getMontant(),
                 paiement.getStatutPaiement(),
                 paiement.getDatePaiement(),
+                null,
                 null
         );
     }

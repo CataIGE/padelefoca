@@ -22,4 +22,5 @@ public class PaiementResponse {
     private StatutPaiement statutPaiement;
     private LocalDateTime datePaiement;
     private String nouveauTypeMembre;
+    private Long siteId;
 }
