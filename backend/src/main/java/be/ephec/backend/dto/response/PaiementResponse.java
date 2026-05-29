@@ -21,4 +21,5 @@ public class PaiementResponse {
     private double montant;
     private StatutPaiement statutPaiement;
     private LocalDateTime datePaiement;
+    private String nouveauTypeMembre;
 }
