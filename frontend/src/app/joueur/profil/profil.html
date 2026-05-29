@@ -1,5 +1,14 @@
 <div class="page">
 
+  @if (promotionMessage) {
+    <div class="popup-overlay">
+      <div class="popup-promotion">
+        <p>{{ promotionMessage }}</p>
+        <button class="btn-fermer" (click)="fermerPopup()">Super ! 🎾</button>
+      </div>
+    </div>
+  }
+
   <!-- HEADER -->
   <div class="header">
     <button class="btn-retour" (click)="retourSites()">← Retour</button>

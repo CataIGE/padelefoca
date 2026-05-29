@@ -5,4 +5,5 @@ export interface Paiement {
   montant: number;
   datePaiement: string;
   statut: 'EN_ATTENTE' | 'PAYE' | 'REMBOURSE';
+  nouveauTypeMembre: string | null;
 }

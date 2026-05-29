@@ -36,6 +36,9 @@ export class MatchService {
   }
 
   rejoindreMatch(matchId: number): Observable<any> {
-    return this.http.post<any>(`${this.apiUrl}/matches/${matchId}/rejoindre`, {});
+    const matricule = sessionStorage.getItem('matricule') || '';
+    return this.http.post<any>(`${this.apiUrl}/matches/${matchId}/rejoindre`, {}, {
+      headers: { 'X-Matricule': matricule }
+    });
   }
 }
