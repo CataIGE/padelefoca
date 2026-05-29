@@ -51,9 +51,8 @@ public class StatistiqueService {
                 .count();
 
         long nombreMatchsTotal = matchRepository.count();
-        long nombreReservations = reservationRepository.count();
         double tauxRemplissage = nombreMatchsTotal == 0 ? 0 :
-                (double) nombreReservations / (nombreMatchsTotal * 4) * 100;
+                (double) nombreMatchsTermines / nombreMatchsTotal * 100;
 
         Map<String, Long> membresByType = joueurRepository.findAll()
                 .stream()
@@ -87,7 +86,15 @@ public class StatistiqueService {
         double tauxRemplissage = nombreMatchsSite == 0 ? 0 :
                 (double) nombreMatchsTermines / nombreMatchsSite * 100;
 
-        Map<String, Long> membresByType = joueurRepository.findAll()
+        Map<String, Long> membresByType = reservationRepository.findAll()
+                .stream()
+                .filter(r -> r.getMatch().getTerrain().getSite().getId().equals(siteId))
+                .collect(Collectors.toMap(
+                        r -> r.getJoueur().getId(),
+                        r -> r.getJoueur(),
+                        (existing, replacement) -> existing
+                ))
+                .values()
                 .stream()
                 .collect(Collectors.groupingBy(
                         j -> j.getTypeMembre().name(),
@@ -122,14 +129,17 @@ public class StatistiqueService {
         double tauxRemplissage = matchesSite.isEmpty() ? 0 :
                 (double) nombreMatchesTermines / matchesSite.size() * 100;
 
-        long nombreJoueurs = joueurRepository.findAll()
+        long nombreJoueurs = reservationRepository.findAll()
                 .stream()
-                .filter(j -> j.getSite() != null && j.getSite().getId().equals(siteId))
+                .filter(r -> r.getMatch().getTerrain().getSite().getId().equals(siteId))
+                .map(r -> r.getJoueur().getId())
+                .distinct()
                 .count();
 
         long nombreReservationsAnnee = reservationRepository.findAll()
                 .stream()
                 .filter(r -> r.getMatch().getTerrain().getSite().getId().equals(siteId))
+                .filter(r -> r.getStatutReservation() == be.ephec.backend.model.enums.StatutReservation.CONFIRMEE)
                 .count();
 
         return new StatistiqueSiteResponse(
@@ -161,7 +171,10 @@ public class StatistiqueService {
 
         long nombreJoueursTotal = joueurRepository.count();
 
-        long nombreReservationsAnnee = reservationRepository.count();
+        long nombreReservationsAnnee = reservationRepository.findAll()
+                .stream()
+                .filter(r -> r.getStatutReservation() == be.ephec.backend.model.enums.StatutReservation.CONFIRMEE)
+                .count();
 
         long libres = joueurRepository.findAll().stream()
                 .filter(j -> j.getTypeMembre() == TypeMembre.LIBRE).count();
