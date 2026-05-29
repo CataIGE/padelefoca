@@ -21,6 +21,7 @@ public class AuthService {
     private final JwtUtil jwtUtil;
     private final PasswordEncoder passwordEncoder;
 
+
     public AuthService(JoueurRepository joueurRepository,
                        AdministrateurRepository administrateurRepository,
                        JwtUtil jwtUtil,

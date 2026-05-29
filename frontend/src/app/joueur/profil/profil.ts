@@ -63,15 +63,50 @@ export class Profil {
     }
   }
 
+  promotionMessage: string | null = null;
+  
+  constructor() {
+    const msg = sessionStorage.getItem('promotionMessage');
+    if (msg) {
+      this.promotionMessage = msg;
+    }
+  }
+
   payer(reservationId: number) {
     this.paiementService.payerPlace(reservationId).subscribe({
-      next: () => {
+      next: (response: any) => {
+        const ancienMatricule = sessionStorage.getItem('matricule') || '';
+        const nouveauTypeMembre = response.nouveauTypeMembre;
+        const ancienTypeMembre = sessionStorage.getItem('typeMembre') || 'LIBRE';
+
+        if (nouveauTypeMembre && nouveauTypeMembre !== ancienTypeMembre) {
+          const prefixe = nouveauTypeMembre === 'SITE' ? 'S' : 'G';
+          const nouveauMatricule = prefixe + ancienMatricule.substring(1);
+          
+          sessionStorage.setItem('matricule', nouveauMatricule);
+          sessionStorage.setItem('typeMembre', nouveauTypeMembre);
+          
+          if (nouveauTypeMembre === 'GLOBAL') {
+            sessionStorage.removeItem('siteId');
+            sessionStorage.setItem('promotionMessage', '🎉 Félicitations ! Vous êtes désormais Membre Global. Vous pouvez réserver jusqu\'à 3 semaines à l\'avance sur tous les sites !');
+          } else if (nouveauTypeMembre === 'SITE') {
+            if (response.siteId) {
+              sessionStorage.setItem('siteId', response.siteId.toString());
+            }
+            sessionStorage.setItem('promotionMessage', '🎉 Félicitations ! Vous êtes désormais Membre du Site. Vous pouvez réserver jusqu\'à 2 semaines à l\'avance sur votre site !');
+          }
+        }
         window.location.reload();
       },
       error: (err: any) => {
         console.log('Erreur paiement:', err);
       }
     });
+  }
+
+  fermerPopup() {
+    this.promotionMessage = null;
+    sessionStorage.removeItem('promotionMessage');
   }
 
   retourSites() {

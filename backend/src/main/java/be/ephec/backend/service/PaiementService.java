@@ -79,7 +79,16 @@ public class PaiementService {
 
         joueurService.verifierEtAppliquerPromotion(matricule);
 
-        return toResponse(paiement);
+        joueurService.verifierEtAppliquerPromotion(matricule);
+
+        Joueur joueurMisAJour = joueurRepository.findById(joueur.getId()).orElse(joueur);
+        String nouveauTypeMembre = joueurMisAJour.getTypeMembre().toString();
+
+        PaiementResponse response = toResponse(paiement);
+        response.setNouveauTypeMembre(nouveauTypeMembre);
+        response.setSiteId(joueurMisAJour.getSite() != null ? joueurMisAJour.getSite().getId() : null);
+        return response;
+
     }
 
     public List<PaiementResponse> getPaiementsByJoueur(String matricule) {
@@ -99,7 +108,9 @@ public class PaiementService {
                 paiement.getReservation().getId(),
                 paiement.getMontant(),
                 paiement.getStatutPaiement(),
-                paiement.getDatePaiement()
+                paiement.getDatePaiement(),
+                null,
+                null
         );
     }
 }

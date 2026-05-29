@@ -69,11 +69,11 @@ public class JoueurService {
         // Promotion vers GLOBAL (6 réservations, joueur actuellement SITE)
         if (reservations >= 6 && joueur.getTypeMembre() == TypeMembre.SITE) {
             String nouveauMatricule = "G" + matricule.substring(1);
-            joueurRepository.updateDtype(matricule);      // 1. change dtype en GLOBAL
+            joueurRepository.updateDtype(matricule);
             joueur.setTypeMembre(TypeMembre.GLOBAL);
             joueur.setSite(null);
-            joueurRepository.save(joueur);                // 2. save sans changer le matricule
-            joueurRepository.updateMatricule(matricule, nouveauMatricule); // 3. update matricule séparément
+            joueurRepository.save(joueur);
+            joueurRepository.updateMatricule(matricule, nouveauMatricule);
             return;
         }
 
@@ -95,11 +95,11 @@ public class JoueurService {
                         be.ephec.backend.model.Site site = siteRepository.findById(e.getKey())
                                 .orElseThrow(() -> new NotFoundException("Site introuvable"));
                         String nouveauMatricule = "S" + matricule.substring(1);
-                        joueurRepository.updateDtypeToSite(matricule);    // 1. change dtype en SITE
+                        joueurRepository.updateDtypeToSite(matricule);
                         joueur.setTypeMembre(TypeMembre.SITE);
                         joueur.setSite(site);
-                        joueurRepository.save(joueur);                    // 2. save sans changer le matricule
-                        joueurRepository.updateMatricule(matricule, nouveauMatricule); // 3. update matricule séparément
+                        joueurRepository.save(joueur);
+                        joueurRepository.updateMatricule(matricule, nouveauMatricule);
                     });
         }
     }
@@ -113,13 +113,25 @@ public class JoueurService {
     }
 
     private String genererMatricule(String prefix) {
+        List<Integer> numerosExistants = joueurRepository.findAll()
+                .stream()
+                .map(Joueur::getMatricule)
+                .map(m -> Integer.parseInt(m.substring(1)))
+                .collect(java.util.stream.Collectors.toList());
+
         String dernierMatricule = joueurRepository.findAll()
                 .stream()
                 .map(Joueur::getMatricule)
                 .filter(m -> m.startsWith(prefix))
                 .max(String::compareTo)
                 .orElse(prefix + "0000");
+
         int numero = Integer.parseInt(dernierMatricule.substring(1)) + 1;
+
+        while (numerosExistants.contains(numero)) {
+            numero++;
+        }
+
         return prefix + String.format("%04d", numero);
     }
 
