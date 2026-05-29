@@ -109,7 +109,7 @@ public class ReservationService {
         reservationRepository.save(reservation);
 
         Match match = reservation.getMatch();
-        if (match.getStatutMatch() == StatutMatch.COMPLET) {
+        if (match.getStatutMatch() == StatutMatch.COMPLET || match.getTypeMatch() == TypeMatch.PRIVE) {
             match.setTypeMatch(TypeMatch.PUBLIC);
             match.setStatutMatch(StatutMatch.PLANIFIE);
             matchRepository.save(match);
