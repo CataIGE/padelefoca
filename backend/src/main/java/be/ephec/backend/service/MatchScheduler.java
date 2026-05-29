@@ -36,10 +36,25 @@ public class MatchScheduler {
         LocalDateTime debutDemain = LocalDate.now().plusDays(1).atStartOfDay();
         LocalDateTime finDemain = debutDemain.plusDays(1);
 
+        // Matchs de demain pour les paiements
         List<Match> matchsDemain = matchRepository.findByDateHeureBetween(debutDemain, finDemain);
-
         for (Match match : matchsDemain) {
             verifierPaiementsMatch(match);
+        }
+
+        // Matchs passés non terminés → marquer comme TERMINE
+        List<Match> matchsPasses = matchRepository.findByDateHeureBefore(LocalDateTime.now());
+        for (Match match : matchsPasses) {
+            if (match.getStatutMatch() == StatutMatch.PLANIFIE || match.getStatutMatch() == StatutMatch.COMPLET) {
+                long placesOccupees = reservationRepository.findByMatchId(match.getId())
+                        .stream()
+                        .filter(r -> r.getStatutReservation() != StatutReservation.ANNULEE)
+                        .count();
+                if (placesOccupees > 0) {
+                    match.setStatutMatch(StatutMatch.TERMINE);
+                    matchRepository.save(match);
+                }
+            }
         }
     }
 
@@ -97,6 +112,11 @@ public class MatchScheduler {
             Joueur organisateur = match.getOrganisateur();
             organisateur.setSoldeDu(organisateur.getSoldeDu() + soldeDu);
             joueurRepository.save(organisateur);
+        }
+
+
+        if (match.getDateHeure().isBefore(LocalDateTime.now()) && placesOccupees > 0) {
+            match.setStatutMatch(StatutMatch.TERMINE);
         }
 
         matchRepository.save(match);

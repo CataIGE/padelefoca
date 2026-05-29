@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+import java.time.LocalDateTime;
+import be.ephec.backend.service.MatchScheduler;
 
 import java.util.List;
 
@@ -25,13 +27,16 @@ public class AdminController {
     private final AdminService adminService;
     private final StatistiqueService statistiqueService;
     private final AdministrateurRepository administrateurRepository;
+    private final MatchScheduler matchScheduler;
 
     public AdminController(AdminService adminService,
                            StatistiqueService statistiqueService,
-                           AdministrateurRepository administrateurRepository) {
+                           AdministrateurRepository administrateurRepository,
+                           MatchScheduler matchScheduler) {
         this.adminService = adminService;
         this.statistiqueService = statistiqueService;
         this.administrateurRepository = administrateurRepository;
+        this.matchScheduler = matchScheduler;
     }
 
     private Administrateur getAdminConnecte() {
@@ -82,6 +87,12 @@ public class AdminController {
     public ResponseEntity<Void> supprimerFermeture(
             @PathVariable Long fermetureId) {
         adminService.supprimerFermeture(fermetureId);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/scheduler/run")
+    public ResponseEntity<Void> runScheduler() {
+        matchScheduler.verifierMatchsVeille();
         return ResponseEntity.ok().build();
     }
 }
