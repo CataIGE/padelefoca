@@ -19,4 +19,6 @@ public interface MatchRepository extends JpaRepository<Match, Long> {
     List<Match> findByDateHeureBetween(LocalDateTime debut, LocalDateTime fin);
 
     List<Match> findByOrganisateurId(Long organisateurId);
+
+    List<Match> findByDateHeureBefore(LocalDateTime dateHeure);
 }

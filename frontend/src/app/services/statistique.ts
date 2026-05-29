@@ -40,4 +40,8 @@ export class StatistiqueService {
   getStatistiquesGlobales(): Observable<StatistiquesGlobales> {
     return this.http.get<StatistiquesGlobales>(`${this.apiUrl}/admin/statistiques/global`);
   }
+
+  runScheduler(): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/admin/scheduler/run`, {});
+  }
 }

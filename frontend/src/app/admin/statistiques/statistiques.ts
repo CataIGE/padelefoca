@@ -77,4 +77,11 @@ export class Statistiques {
     if (siteId === '3') return 'AdminNamur.png';
     return 'ImageAdmin.png';
   }
+
+  mettreAJourStats() {
+    this.statistiqueService.runScheduler().subscribe({
+      next: () => this.chargerStats(),
+      error: () => this.chargerStats()
+    });
+  }
 }

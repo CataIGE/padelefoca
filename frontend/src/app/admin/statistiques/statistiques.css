@@ -260,6 +260,24 @@
   color: var(--jaune);
 }
 
+.maj-container {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 24px 16px;
+  
+  
+}
+
+.btn-maj {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px 16px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  margin: auto;
+}
+
 /* =====================
    RESPONSIVE MOBILE
    ===================== */
