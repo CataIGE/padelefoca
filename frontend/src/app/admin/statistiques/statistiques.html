@@ -12,6 +12,11 @@
   <img [src]="getImageAdmin()" alt="Admin" class="admin-image" />
 </div>
 
+  <!--BTN RUN Scheduler Mettre a jour les stats-->
+  <div class="maj-container">
+    <button class="btn-maj" (click)="mettreAJourStats()">🔄 Mettre à jour les statistiques</button>
+  </div>
+
   <!-- TABS ADMIN GLOBAL -->
   @if (estAdminGlobal()) {
   <div class="tabs-container">
