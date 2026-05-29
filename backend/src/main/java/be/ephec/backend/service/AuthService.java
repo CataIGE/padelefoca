@@ -21,6 +21,7 @@ public class AuthService {
     private final JwtUtil jwtUtil;
     private final PasswordEncoder passwordEncoder;
 
+
     public AuthService(JoueurRepository joueurRepository,
                        AdministrateurRepository administrateurRepository,
                        JwtUtil jwtUtil,
@@ -39,7 +40,8 @@ public class AuthService {
                 joueur.getMatricule(),
                 joueur.getNom(),
                 joueur.getPrenom(),
-                joueur.getTypeMembre()
+                joueur.getTypeMembre(),
+                joueur.getSite() != null ? joueur.getSite().getId() : null
         );
     }
 
