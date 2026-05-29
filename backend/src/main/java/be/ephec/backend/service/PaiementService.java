@@ -79,8 +79,6 @@ public class PaiementService {
 
         joueurService.verifierEtAppliquerPromotion(matricule);
 
-        joueurService.verifierEtAppliquerPromotion(matricule);
-
         Joueur joueurMisAJour = joueurRepository.findById(joueur.getId()).orElse(joueur);
         String nouveauTypeMembre = joueurMisAJour.getTypeMembre().toString();
 
