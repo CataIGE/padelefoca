@@ -71,6 +71,31 @@ public class GestionAdminService {
         Administrateur admin = administrateurRepository.findById(adminId)
                 .orElseThrow(() -> new NotFoundException("Admin introuvable"));
 
+        if (!admin.getTypeAdmin().name().equals(request.getTypeAdmin())) {
+            administrateurRepository.deleteById(adminId);
+
+            Administrateur nouvelAdmin;
+            if ("GLOBAL".equals(request.getTypeAdmin())) {
+                nouvelAdmin = new AdminGlobal();
+                nouvelAdmin.setTypeAdmin(TypeAdmin.GLOBAL);
+                nouvelAdmin.setSite(null);
+            } else {
+                if (request.getSiteId() == null) {
+                    throw new BadRequestException("Un admin de site doit avoir un site");
+                }
+                Site site = siteRepository.findById(request.getSiteId())
+                        .orElseThrow(() -> new NotFoundException("Site introuvable"));
+                nouvelAdmin = new AdminSite();
+                nouvelAdmin.setTypeAdmin(TypeAdmin.SITE);
+                nouvelAdmin.setSite(site);
+            }
+            nouvelAdmin.setNom(request.getNom());
+            nouvelAdmin.setPrenom(request.getPrenom());
+            nouvelAdmin.setEmail(request.getEmail());
+            nouvelAdmin.setMotDePasse(admin.getMotDePasse());
+            return toResponse(administrateurRepository.save(nouvelAdmin));
+        }
+
         admin.setNom(request.getNom());
         admin.setPrenom(request.getPrenom());
         admin.setEmail(request.getEmail());
