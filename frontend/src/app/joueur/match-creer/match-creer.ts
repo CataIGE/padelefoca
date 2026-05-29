@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatchService } from '../../services/match';
 import { SlicePipe } from '@angular/common';
+import { JoueurService } from '../../services/joueur';
 
 @Component({
   selector: 'app-match-creer',
@@ -15,6 +16,7 @@ export class MatchCreer {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   private matchService = inject(MatchService);
+  private joueurService = inject(JoueurService);
 
   siteId: number = parseInt(this.route.snapshot.params['siteId']);
   dateHeure: string = this.route.snapshot.queryParams['dateHeure'] || '';
@@ -61,6 +63,9 @@ export class MatchCreer {
             error: (err: any) => {
               this.chargement = false;
               this.erreur.set(err?.error?.message || 'Match créé mais erreur lors de l\'ajout des joueurs.');
+              if (match.organisateurReservationId) {
+                this.joueurService.annulerReservation(match.organisateurReservationId).subscribe();
+              }
             }
           });
         } else {

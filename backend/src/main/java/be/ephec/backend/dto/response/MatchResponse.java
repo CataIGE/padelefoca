@@ -29,4 +29,5 @@ public class MatchResponse {
     private int nombreJoueurs;
     private int placesDisponibles;
     private List<String> joueursMatricules;
+    private Long organisateurReservationId;
 }

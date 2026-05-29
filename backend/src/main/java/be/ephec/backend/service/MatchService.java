@@ -13,6 +13,7 @@ import be.ephec.backend.repository.MatchRepository;
 import be.ephec.backend.repository.ReservationRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -110,12 +111,18 @@ public class MatchService {
             throw new BadRequestException("Pas assez de places disponibles dans ce match");
         }
 
+        // Vérifier que TOUS les joueurs existent avant de créer quoi que ce soit
+        List<Joueur> joueurs = new ArrayList<>();
         for (String matricule : request.getMatricules()) {
             Joueur joueur = joueurRepository.findByMatricule(matricule)
                     .orElseThrow(() -> new NotFoundException("Joueur avec matricule " + matricule + " introuvable"));
+            joueurs.add(joueur);
+        }
 
+        // Maintenant on peut créer les réservations
+        for (Joueur joueur : joueurs) {
             boolean dejaInscrit = reservationsExistantes.stream()
-                    .anyMatch(r -> r.getJoueur().getMatricule().equals(matricule));
+                    .anyMatch(r -> r.getJoueur().getMatricule().equals(joueur.getMatricule()));
 
             if (dejaInscrit) {
                 continue;
@@ -156,6 +163,12 @@ public class MatchService {
                 .map(r -> r.getJoueur().getMatricule())
                 .toList();
 
+        Long organisateurReservationId = reservations.stream()
+                .filter(r -> r.getJoueur().getMatricule().equals(match.getOrganisateur().getMatricule()))
+                .map(Reservation::getId)
+                .findFirst()
+                .orElse(null);
+
         return new MatchResponse(
                 match.getId(),
                 match.getTerrain().getSite().getId(),
@@ -169,7 +182,8 @@ public class MatchService {
                 match.getStatutMatch(),
                 nombreJoueurs,
                 Constantes.NOMBRE_JOUEURS_MAX - nombreJoueurs,
-                matricules
+                matricules,
+                organisateurReservationId
         );
     }
 
