@@ -74,11 +74,10 @@ public class PaiementService {
         reservationRepository.save(reservation);
 
         joueur.setSoldeDu(Math.max(0, joueur.getSoldeDu() - Constantes.PRIX_PAR_JOUEUR));
+        joueur.setNombreReservationsSansPenalite(joueur.getNombreReservationsSansPenalite() + 1);
         joueurRepository.save(joueur);
 
-        joueur.setNombreReservationsSansPenalite(
-                joueur.getNombreReservationsSansPenalite() + 1);
-        joueurRepository.save(joueur);
+        joueurService.verifierEtAppliquerPromotion(matricule);
 
         joueurService.verifierEtAppliquerPromotion(matricule);
 

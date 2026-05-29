@@ -69,14 +69,11 @@ public class JoueurService {
         // Promotion vers GLOBAL (6 réservations, joueur actuellement SITE)
         if (reservations >= 6 && joueur.getTypeMembre() == TypeMembre.SITE) {
             String nouveauMatricule = "G" + matricule.substring(1);
-            System.out.println(">>> PROMOTION GLOBAL: " + matricule + " -> " + nouveauMatricule + " (reservations=" + reservations + ")");
             joueurRepository.updateDtype(matricule);
             joueur.setTypeMembre(TypeMembre.GLOBAL);
             joueur.setSite(null);
             joueurRepository.save(joueur);
-            System.out.println(">>> SAVE OK, tentative updateMatricule");
             joueurRepository.updateMatricule(matricule, nouveauMatricule);
-            System.out.println(">>> updateMatricule OK");
             return;
         }
 
