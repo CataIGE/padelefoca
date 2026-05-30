@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Auth } from '../../services/auth';
@@ -13,6 +13,7 @@ export class ConnexionAdmin {
 
   private router = inject(Router);
   private authService = inject(Auth);
+  private cdr = inject(ChangeDetectorRef);
 
   email: string = '';
   motDePasse: string = '';
@@ -42,6 +43,7 @@ export class ConnexionAdmin {
       },
       error: () => {
         this.erreur = 'Email ou mot de passe incorrect.';
+        this.cdr.markForCheck();
       }
     });
   }
